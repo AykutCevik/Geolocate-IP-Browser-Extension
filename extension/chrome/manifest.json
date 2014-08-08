@@ -1,0 +1,30 @@
+{
+    "name": "IP Geolocation",
+    "version": "0.1",
+    "manifest_version": 2,
+    "icons": {
+        "16": "img/icon16.png",
+        "48": "img/icon48.png",
+        "128": "img/icon128.png"
+    },
+    "description": "Show detailed information about your IP location.",
+    "browser_action": {
+        "default_title": "Show IP location info"
+    },
+    "background": {"page": "background.html"},
+    "permissions": [
+        "tabs"
+    ],
+    "incognito": "spanning",
+    "minimum_chrome_version": "25",
+    "offline_enabled": false,
+    "options_page": "options.html",
+    "permissions": [
+        "webRequest",
+        "https://aykutcevik.com/"
+    ],
+    "browser_action": {
+        "default_icon": "img/icon.png",
+        "default_popup": "popup.html"
+    }
+}
