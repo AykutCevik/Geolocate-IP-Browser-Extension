@@ -1,6 +1,0 @@
-{
-    "require": {
-        "slim/slim": "2.*",
-        "mnapoli/php-di": "4.2.*"
-    }
-}
