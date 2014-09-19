@@ -9,7 +9,7 @@
     },
     "description": "Shows detailed information about your IP and location.",
     "background": {"page": "background.html"},
-    "incognito": "spanning",
+    "incognito": "split",
     "minimum_chrome_version": "25",
     "offline_enabled": false,
     "permissions": [

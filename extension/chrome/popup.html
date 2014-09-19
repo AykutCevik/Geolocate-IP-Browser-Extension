@@ -96,10 +96,12 @@
     </table>
     <div class="external-link">
         <% if(geolocation.region != '') { %>
-        <a href="https://www.google.com.au/maps/preview/@<%= geolocation.latitude %>,<%= geolocation.longitude %>,12z" target="_blank">Show my location on Google
+        <a href="https://www.google.com.au/maps/preview/@<%= geolocation.latitude %>,<%= geolocation.longitude %>,12z" target="_blank">Show my IP location on
+            Google
             Maps</a><br/>
         <% } else { %>
-        <a href="https://www.google.com.au/maps/preview/@<%= geolocation.latitude %>,<%= geolocation.longitude %>,8z" target="_blank">Show my location on Google
+        <a href="https://www.google.com.au/maps/preview/@<%= geolocation.latitude %>,<%= geolocation.longitude %>,8z" target="_blank">Show my IP location on
+            Google
             Maps</a><br/>
         <% } %>
         <a href="https://dnsleaktest.com/" target="_blank">Check for DNS leaks</a>

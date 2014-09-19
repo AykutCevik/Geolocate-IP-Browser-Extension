@@ -20,7 +20,7 @@ function fetchGeoLocation() {
 
 $(document).ready(
     function () {
-        setBadgeColor('#000');
+        setBadgeColor('#3498db');
         setBadgeText('...');
         fetchGeoLocation();
         var intval = setInterval(fetchGeoLocation, 3000);
