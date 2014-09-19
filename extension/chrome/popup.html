@@ -8,23 +8,97 @@
     <script src="js/lib/underscore.js" type="text/javascript"></script>
     <script src="js/lib/backbone-min.js" type="text/javascript"></script>
     <script src="js/models/GeoLocation.js" type="text/javascript"></script>
+    <script src="js/popup.js" type="text/javascript"></script>
     <style type="text/css">
         body {
             width: 500px;
+            font-family: sans-serif;
+            font-size: 12pt;
+        }
+
+        .content {
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .footer {
+            font-size: 9pt;
+            color: darkgray;
+        }
+
+        .ip-infos {
+            border: 1px solid #000;
+            background-color: #3498db;
+            width: 100%;
+            color: #fff;
+        }
+
+        .ip-infos td{
+            padding: 5px;
+        }
+
+        a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        .external-map {
+            font-size: 10pt;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1 style="clear: both">Statistics</h1>
+<div class="content">
+    <h1 style="text-align: center">IP geolocation informations</h1>
+
+    <div id="ipLocationInfo">
+        Loading...
+    </div>
 </div>
 
 <div class="footer">
-    <div class="container">
-        <p><b>BETA!</b> This application is still in development. Please be patient for a final release and stay tuned at <a
-                href="https://github.com/AykutCevik/Geolocate-IP-Browser-Extension" target="_blank">Github</a></p>
-    </div>
+    <p><b>BETA!</b> This application is still in development. Please be patient for a final release and stay tuned at <a
+            href="https://github.com/AykutCevik/Geolocate-IP-Browser-Extension" target="_blank">Github</a>.</p>
 </div>
+
+<script type="text/html" id="ipGeoLocationView">
+    <table class="ip-infos">
+        <tr>
+            <td>IP:</td>
+            <td><%= geolocation.ip %></td>
+        </tr>
+        <% if(geolocation.ip_forwarded_for != false) { %>
+        <tr>
+            <td>Real IP (sent with the 'X-Forwarded-For' header):</td>
+            <td><%= geolocation.ip_forwarded_for %></td>
+        </tr>
+        <% } %>
+        <tr>
+            <td>Country:</td>
+            <% if(geolocation.country_code != '') { %>
+            <td><%= geolocation.country_name %> (<%= geolocation.country_code %>)</td>
+            <% } else { %>
+            <td>not set</td>
+            <% } %>
+        </tr>
+        <tr>
+            <td>City and region:</td>
+            <% if(geolocation.region != '') { %>
+            <td><%= geolocation.city %>(<%= geolocation.region %>)</td>
+            <% } else { %>
+            <td>not set</td>
+            <% } %>
+        </tr>
+    </table>
+    <div class="external-map">
+        <a href="https://www.google.com.au/maps/preview/@<%= geolocation.latitude %>,<%= geolocation.longitude %>,8z" target="_blank">Show my location on Google
+            Maps</a>
+    </div>
+</script>
+
 </body>
 </html>

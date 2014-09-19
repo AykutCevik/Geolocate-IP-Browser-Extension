@@ -6,7 +6,7 @@ function setBadgeColor(color) {
     chrome.browserAction.setBadgeBackgroundColor({color: color});
 }
 
-function fetchGeolocation() {
+function fetchGeoLocation() {
     var geoLocate = new GeoLocation();
     geoLocate.fetch({
         success: function () {
@@ -22,7 +22,7 @@ $(document).ready(
     function () {
         setBadgeColor('#000');
         setBadgeText('...');
-        fetchGeolocation();
-        var intval = setInterval(fetchGeolocation, 3000);
+        fetchGeoLocation();
+        var intval = setInterval(fetchGeoLocation, 3000);
     }
 );
