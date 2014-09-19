@@ -1,7 +1,28 @@
-var REST_API_URL = 'https://aykutcevik.com/api';
+function setBadgeText(text) {
+    chrome.browserAction.setBadgeText({text: text});
+}
+
+function setBadgeColor(color) {
+    chrome.browserAction.setBadgeBackgroundColor({color: color});
+}
+
+function fetchGeolocation() {
+    var geoLocate = new GeoLocation();
+    geoLocate.fetch({
+        success: function () {
+            setBadgeText(geoLocate.get('country_code'));
+        },
+        error: function () {
+            setBadgeText('ERR');
+        }
+    });
+}
+
 $(document).ready(
-    function(){
-        // TODO: dynamically load needed js files
-        // TODO: Use dependency injection
+    function () {
+        setBadgeColor('#000');
+        setBadgeText('...');
+        fetchGeolocation();
+        var intval = setInterval(fetchGeolocation, 3000);
     }
 );

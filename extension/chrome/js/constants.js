@@ -1,0 +1,1 @@
+var API_URL = 'https://aykutcevik.com';

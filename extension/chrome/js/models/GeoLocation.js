@@ -1,12 +1,18 @@
 var GeoLocation = Backbone.Model.extend({
-    url: REST_API_URL + '/geolocation',
+    url: API_URL + '/geoLocate.php',
     defaults: {
-        countryCode: null,
-        countryName: null,
-        region: null,
-        city: null,
-        postalCode: null,
-        latitude: null,
-        longitude: null
+        continent_code: "",
+        country_code: "",
+        country_code3: "",
+        country_name: "",
+        region: "",
+        city: "",
+        postal_code: "",
+        latitude: 0,
+        longitude: 0,
+        dma_code: 0,
+        area_code: 0,
+        ip: "",
+        ip_forwarded_for: false
     }
 });
