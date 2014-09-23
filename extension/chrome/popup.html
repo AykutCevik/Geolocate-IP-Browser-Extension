@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>IP Geolocator</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script src="js/constants.js" type="text/javascript"></script>
     <script src="js/lib/jquery-min.js" type="text/javascript"></script>
@@ -14,6 +14,14 @@
             width: 500px;
             font-family: sans-serif;
             font-size: 12pt;
+            background: rgba(255, 255, 255, 1);
+            background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(47%, rgba(246, 246, 246, 1)), color-stop(100%, rgba(237, 237, 237, 1)));
+            background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            background: -o-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            background: -ms-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=0);
         }
 
         .content {
@@ -28,10 +36,10 @@
         }
 
         .ip-infos {
-            border: 1px solid #000;
-            background-color: #3498db;
+            border-bottom: 1px solid #909299;
+            background-color: transparent;
             width: 100%;
-            color: #fff;
+
         }
 
         .ip-infos td {
