@@ -5,4 +5,4 @@ A browser extension, which shows you the origin of your IP address and several g
 
 Supported browsers
 ==============================
-* Chrome
+* Chrome: https://chrome.google.com/webstore/detail/ip-geolocator/lfncinhjhjgebfnnblppmbmkgjgifhdf
