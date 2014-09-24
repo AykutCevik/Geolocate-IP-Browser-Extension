@@ -5,9 +5,11 @@ $(document).ready(function () {
 
 function saveSettings() {
     var notificationSetting = $('#enableNotifications').prop('checked');
+    var gmapsSetting = $('#showGoogleMaps').prop('checked');
 
     var lp = new LocalStorageProvider();
-    var notificationsEnabled = lp.set(KEY_SETTINGS_NOTIFICATION, notificationSetting);
+    lp.set(KEY_SETTINGS_NOTIFICATION, notificationSetting);
+    lp.set(KEY_SETTINGS_GMAPS, gmapsSetting);
 }
 
 function loadSettings() {
@@ -15,7 +17,10 @@ function loadSettings() {
     if (!lp.isSet(KEY_SETTINGS_NOTIFICATION)) {
         lp.set(KEY_SETTINGS_NOTIFICATION, true);
     }
+    if (!lp.isSet(KEY_SETTINGS_GMAPS)) {
+        lp.set(KEY_SETTINGS_GMAPS, true);
+    }
 
-    var notificationsEnabled = lp.get(KEY_SETTINGS_NOTIFICATION);
-    $('#enableNotifications').prop('checked', notificationsEnabled);
+    $('#enableNotifications').prop('checked', lp.get(KEY_SETTINGS_NOTIFICATION));
+    $('#showGoogleMaps').prop('checked', lp.get(KEY_SETTINGS_GMAPS));
 }

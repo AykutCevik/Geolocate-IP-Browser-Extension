@@ -7,6 +7,7 @@
     <script src="js/lib/jquery-min.js" type="text/javascript"></script>
     <script src="js/lib/underscore.js" type="text/javascript"></script>
     <script src="js/lib/backbone-min.js" type="text/javascript"></script>
+    <script src="js/utils/LocalStorageProvider.js" type="text/javascript"></script>
     <script src="js/models/GeoLocation.js" type="text/javascript"></script>
     <script src="js/popup.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/main.css"/>
@@ -61,15 +62,20 @@
         </tr>
     </table>
     <div class="external-link">
-        <% if(geolocation.region != '') { %>
-        <a href="https://www.google.com.au/maps/preview/@<%= geolocation.latitude %>,<%= geolocation.longitude %>,12z" target="_blank">Show my IP location on
-            Google
-            Maps</a><br/>
-        <% } else { %>
-        <a href="https://www.google.com.au/maps/preview/@<%= geolocation.latitude %>,<%= geolocation.longitude %>,8z" target="_blank">Show my IP location on
-            Google
-            Maps</a><br/>
-        <% } %>
+        <%
+        var mapsZoom = '8';
+        var lp = new LocalStorageProvider();
+        var showGMaps = lp.isSet(KEY_SETTINGS_GMAPS) ? lp.get(KEY_SETTINGS_GMAPS) : true;
+        if(geolocation.region != '') {
+            mapsZoom = '12';
+        } %>
+        <a href="https://www.google.com.au/maps/preview/@<%= geolocation.latitude %>,<%= geolocation.longitude %>,<%= mapsZoom %>z" target="_blank">
+            <% if(showGMaps) { %>
+            <img src="http://maps.googleapis.com/maps/api/staticmap?center=<%= geolocation.latitude %> <%= geolocation.longitude %>&zoom=<%= mapsZoom %>&size=500x300&maptype=roadmap"/>
+            <% } else { %>
+            Show my IP location on Google Maps
+            <% } %>
+        </a><br/>
         <a href="https://dnsleaktest.com/" target="_blank">Check for DNS leaks</a>
     </div>
 </script>
