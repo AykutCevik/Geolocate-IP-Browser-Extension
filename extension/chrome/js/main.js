@@ -1,4 +1,5 @@
 var latestGeoLocation = null;
+var lp = new LocalStorageProvider();
 
 function setBadgeText(text) {
     chrome.browserAction.setBadgeText({text: text});
@@ -14,7 +15,9 @@ function checkForLocationChange(geoLocation) {
         return;
     }
 
-    if (latestGeoLocation.get('ip') != geoLocation.get('ip')) {
+    var checkForNotifications = lp.isSet(KEY_SETTINGS_NOTIFICATION) ? lp.get(KEY_SETTINGS_NOTIFICATION) : true;
+
+    if (checkForNotifications && (latestGeoLocation.get('ip') != geoLocation.get('ip'))) {
         message = 'Your IP changed from ' + latestGeoLocation.get('ip') + ' to ' + geoLocation.get('ip') + '.';
         showChromeNotification('geoLocationAlert' + Math.random(), 'IP Geolocator - IP changed', message, 'Disable notifications in settings page.', function (string) {
         });
