@@ -53,9 +53,17 @@
             <% } %>
         </tr>
         <tr>
-            <td>City and region:</td>
+            <td>City:</td>
             <% if(geolocation.region != '') { %>
             <td><%= geolocation.city %> (<%= geolocation.region %>)</td>
+            <% } else { %>
+            <td>-</td>
+            <% } %>
+        </tr>
+        <tr>
+            <td>User agent:</td>
+            <% if(geolocation.user_agent != '') { %>
+            <td><small><%= geolocation.user_agent %></small></td>
             <% } else { %>
             <td>-</td>
             <% } %>
