@@ -34,7 +34,8 @@ function fetchGeoLocation() {
         },
         error: function () {
             setBadgeText('ERR');
-        }
+        },
+        timeout: 2800
     });
 }
 
