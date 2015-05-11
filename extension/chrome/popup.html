@@ -28,44 +28,74 @@
 </div>
 
 <div class="footer">
-    <p><b>BETA!</b> This application is still in development. Please be patient for a final release and stay tuned at <a
+    <a href="https://play.google.com/store/apps/details?id=com.aykutcevik.ipgeolocator" target="_blank">
+        <img alt="Android app on Google Play" src="img/en_app_rgb_wo_45.png"/>
+    </a>
+
+    <p>This application is still in development. Feel free to contribute at <a
             href="https://github.com/AykutCevik/Geolocate-IP-Browser-Extension" target="_blank">Github</a>.</p>
 </div>
 
 <script type="text/html" id="ipGeoLocationView">
     <table class="ip-infos">
         <tr>
-            <td>IP:</td>
-            <td><%= geolocation.ip %></td>
+            <td>
+                <small>IP:</small>
+            </td>
+            <td>
+                <small><%= geolocation.ip %></small>
+            </td>
         </tr>
         <% if(geolocation.ip_forwarded_for != false) { %>
         <tr>
-            <td>Real IP (sent with the 'X-Forwarded-For' header):</td>
-            <td><%= geolocation.ip_forwarded_for %></td>
+            <td>
+                <small>Real IP (sent with the 'X-Forwarded-For' header):</small>
+            </td>
+            <td>
+                <small><%= geolocation.ip_forwarded_for %></small>
+            </td>
         </tr>
         <% } %>
         <tr>
-            <td>Country:</td>
+            <td>
+                <small>Country:</small>
+            </td>
             <% if(geolocation.country_code != '') { %>
-            <td><%= geolocation.country_name %> (<%= geolocation.country_code %>)</td>
+            <td>
+                <small><%= geolocation.country_name %> (<%= geolocation.country_code %>)</small>
+            </td>
             <% } else { %>
-            <td>not set</td>
+            <td>
+                <small>-</small>
+            </td>
             <% } %>
         </tr>
         <tr>
-            <td>City:</td>
+            <td>
+                <small>City:</small>
+            </td>
             <% if(geolocation.region != '') { %>
-            <td><%= geolocation.city %> (<%= geolocation.region %>)</td>
+            <td>
+                <small><%= geolocation.city %> (<%= geolocation.region %>)</small>
+            </td>
             <% } else { %>
-            <td>-</td>
+            <td>
+                <small>-</small>
+            </td>
             <% } %>
         </tr>
         <tr>
-            <td>User agent:</td>
+            <td>
+                <small>User agent:</small>
+            </td>
             <% if(geolocation.user_agent != '') { %>
-            <td><small><%= geolocation.user_agent %></small></td>
+            <td>
+                <small><%= geolocation.user_agent %></small>
+            </td>
             <% } else { %>
-            <td>-</td>
+            <td>
+                <small>-</small>
+            </td>
             <% } %>
         </tr>
     </table>
@@ -75,7 +105,7 @@
         var lp = new LocalStorageProvider();
         var showGMaps = lp.isSet(KEY_SETTINGS_GMAPS) ? lp.get(KEY_SETTINGS_GMAPS) : true;
         if(geolocation.region != '') {
-            mapsZoom = '12';
+        mapsZoom = '12';
         } %>
         <a href="https://www.google.com.au/maps/preview/@<%= geolocation.latitude %>,<%= geolocation.longitude %>,<%= mapsZoom %>z" target="_blank">
             <% if(showGMaps) { %>
