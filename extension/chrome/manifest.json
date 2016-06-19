@@ -1,26 +1,37 @@
 {
-    "name": "IP Geolocator",
-    "version": "1.3.2",
-    "manifest_version": 2,
-    "icons": {
-        "16": "img/icon16.png",
-        "48": "img/icon48.png",
-        "128": "img/icon128.png"
-    },
-    "description": "Shows detailed information about your IP and location.",
-    "background": {"page": "background.html"},
-    "incognito": "split",
-    "minimum_chrome_version": "25",
-    "offline_enabled": false,
-    "options_page": "options.html",
-    "permissions": [
-        "https://aykutcevik.com/",
-        "notifications"
-    ],
-    "browser_action": {
-        "default_icon": "img/icon.png",
-        "default_popup": "popup.html",
-        "default_title": "IP Geolocator"
-    },
-    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  "name": "IP Geolocator",
+  "version": "1.3.2",
+  "manifest_version": 2,
+  "icons": {
+    "16": "img/icon16.png",
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
+  },
+  "description": "Shows detailed information about your IP and location.",
+  "background": {
+    "page": "background.html"
+  },
+  "incognito": "split",
+  "minimum_chrome_version": "25",
+  "offline_enabled": false,
+  "options_page": "options.html",
+  "permissions": [
+    "https://aykutcevik.com/",
+    "notifications",
+    "storage"
+  ],
+  "browser_action": {
+    "default_icon": "img/icon.png",
+    "default_popup": "popup.html",
+    "default_title": "IP Geolocator"
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "applications": {
+    "gecko": {
+      "id": "ipgeolocator@aykutcevik.com"
+    }
+  },
+  "options_ui": {
+    "page": "options.html"
+  }
 }

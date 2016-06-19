@@ -15,11 +15,12 @@
 
         body {
             width: 500px;
+            overflow: hidden;
         }
 
     </style>
 </head>
-<body class="gradient-bg">
+<body class="gradient-bg" id="bodycontent">
 
 <div class="content">
     <div id="ipLocationInfo">
@@ -109,7 +110,8 @@
         } %>
         <a href="https://www.google.com/maps/preview/@<%= geolocation.latitude %>,<%= geolocation.longitude %>,<%= mapsZoom %>z" target="_blank">
             <% if(showGMaps) { %>
-            <img src="http://maps.googleapis.com/maps/api/staticmap?center=<%= geolocation.latitude %> <%= geolocation.longitude %>&zoom=<%= mapsZoom %>&size=500x300&maptype=roadmap" style="border: 1px solid #000;"/>
+            <img src="http://maps.googleapis.com/maps/api/staticmap?center=<%= geolocation.latitude %> <%= geolocation.longitude %>&zoom=<%= mapsZoom %>&size=500x300&maptype=roadmap"
+                 style="border: 1px solid #000;"/>
             <% } else { %>
             Show my IP location on Google Maps
             <% } %>
