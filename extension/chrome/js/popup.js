@@ -13,16 +13,9 @@ function fetchGeoLocation() {
 
 $(document).ready(
     function () {
+        // empty
+        var infosHtml = _.template($('#ipGeoLocationView').html(), {geolocation: new GeoLocation()});
+        $('#ipLocationInfo').html(infosHtml);
         fetchGeoLocation();
-
-        if (IS_FIREFOX) {
-            // popup is not resizing on firefox when content is added dynamically
-            var bodyElm = $('#bodycontent');
-            var children_height = 0;
-            bodyElm.children().each(function () {
-                children_height += $(this).height();
-            });
-            bodyElm.height(Math.max(children_height / 2, bodyElm.height())) + 10;
-        }
     }
 );
