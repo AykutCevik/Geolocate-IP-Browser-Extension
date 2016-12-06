@@ -30,7 +30,7 @@ function fetchGeoLocation() {
     geoLocate.fetch({
         success: function () {
             checkForLocationChange(geoLocate);
-            setBadgeText(geoLocate.get('country_code'));
+            setBadgeText(geoLocate.get('country_code') ? geoLocate.get('country_code') : 'ERR');
         },
         error: function () {
             setBadgeText('ERR');
