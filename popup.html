@@ -46,7 +46,7 @@
                 <small>IP:</small>
             </td>
             <td>
-                <small><%= geolocation.ip %></small>
+                <small><%- geolocation.ip %></small>
             </td>
         </tr>
         <% if(geolocation.ip_forwarded_for != false) { %>
@@ -55,7 +55,7 @@
                 <small>Real IP (sent with the 'X-Forwarded-For' header):</small>
             </td>
             <td>
-                <small><%= geolocation.ip_forwarded_for %></small>
+                <small><%- geolocation.ip_forwarded_for %></small>
             </td>
         </tr>
         <% } %>
@@ -65,7 +65,7 @@
             </td>
             <% if(geolocation.country_code != '') { %>
             <td>
-                <small><%= geolocation.country_name %> (<%= geolocation.country_code %>)</small>
+                <small><%- geolocation.country_name %> (<%- geolocation.country_code %>)</small>
             </td>
             <% } else { %>
             <td>
@@ -79,7 +79,7 @@
             </td>
             <% if(geolocation.region != '') { %>
             <td>
-                <small><%= geolocation.city %> (<%= geolocation.region %>)</small>
+                <small><%- geolocation.city %> (<%- geolocation.region %>)</small>
             </td>
             <% } else { %>
             <td>
@@ -93,7 +93,7 @@
             </td>
             <% if(geolocation.user_agent != '') { %>
             <td>
-                <small><%= geolocation.user_agent %></small>
+                <small><%- geolocation.user_agent %></small>
             </td>
             <% } else { %>
             <td>
@@ -110,9 +110,9 @@
         if(geolocation.region != '') {
         mapsZoom = '12';
         } %>
-        <a href="https://www.google.com/maps/preview/@<%= geolocation.latitude %>,<%= geolocation.longitude %>,<%= mapsZoom %>z" target="_blank">
+        <a href="https://www.google.com/maps/preview/@<%- geolocation.latitude %>,<%- geolocation.longitude %>,<%- mapsZoom %>z" target="_blank">
             <% if(showGMaps) { %>
-            <img src="http://maps.googleapis.com/maps/api/staticmap?center=<%= geolocation.latitude %> <%= geolocation.longitude %>&zoom=<%= mapsZoom %>&size=500x300&maptype=roadmap"
+            <img src="http://maps.googleapis.com/maps/api/staticmap?center=<%- geolocation.latitude %> <%- geolocation.longitude %>&zoom=<%- mapsZoom %>&size=500x300&maptype=roadmap"
                  style="border: 1px solid #000;" width="500" height="300"/>
             <% } else { %>
             Show my IP location on Google Maps
