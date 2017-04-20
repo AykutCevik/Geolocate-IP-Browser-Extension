@@ -3,7 +3,7 @@ Geolocate-IP-Browser-Extension
 
 A browser extension, which shows you the origin of your IP address and several geolocational informations.
 
-![chrome-extension](/extension/chrome-extension-screenshot.png)
+![chrome-extension](https://aykutcevik.com/blog/media/chrome-extension-screenshot.png)
 
 Supported browsers
 ==============================
