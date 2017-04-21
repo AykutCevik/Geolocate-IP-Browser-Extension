@@ -7,5 +7,6 @@ A browser extension, which shows you the origin of your IP address and several g
 
 Supported browsers
 ==============================
-* [Chrome Webstore Page](https://chrome.google.com/webstore/detail/ip-geolocator/lfncinhjhjgebfnnblppmbmkgjgifhdf)
-* [Firefox Add-ons Page](https://addons.mozilla.org/de/firefox/addon/ip-geolocator/)
+* [Chrome Webstore](https://chrome.google.com/webstore/detail/ip-geolocator/lfncinhjhjgebfnnblppmbmkgjgifhdf)
+* [Firefox Add-ons](https://addons.mozilla.org/de/firefox/addon/ip-geolocator/)
+* [Opera Add-ons](https://addons.opera.com/de/extensions/details/ip-address-geolocation/)
