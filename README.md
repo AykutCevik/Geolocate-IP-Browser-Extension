@@ -1,4 +1,4 @@
-Geolocate-IP-Browser-Extension
+IP Address & Geolocation (IP Geolocator)
 ==============================
 
 A browser extension, which shows you the origin of your IP address and several geolocational informations.
