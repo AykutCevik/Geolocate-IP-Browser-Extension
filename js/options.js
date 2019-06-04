@@ -5,11 +5,13 @@ $(document).ready(function () {
 
 function saveSettings() {
     var notificationSetting = $('#enableNotifications').prop('checked');
-    var gmapsSetting = $('#showGoogleMaps').prop('checked');
+    var notificationIPv6Setting = $('#enableNotificationsIPv6').prop('checked');
+    var badgeIndicator = $("input:radio[name ='indicator']:checked").val();
 
     var lp = new LocalStorageProvider();
     lp.set(KEY_SETTINGS_NOTIFICATION, notificationSetting);
-    lp.set(KEY_SETTINGS_GMAPS, gmapsSetting);
+    lp.set(KEY_SETTINGS_NOTIFICATION_IPv6, notificationIPv6Setting);
+    lp.set(KEY_SETTINGS_COUNTRY_BADGE, badgeIndicator);
 }
 
 function loadSettings() {
@@ -17,10 +19,18 @@ function loadSettings() {
     if (!lp.isSet(KEY_SETTINGS_NOTIFICATION)) {
         lp.set(KEY_SETTINGS_NOTIFICATION, true);
     }
-    if (!lp.isSet(KEY_SETTINGS_GMAPS)) {
-        lp.set(KEY_SETTINGS_GMAPS, true);
+
+    if (!lp.isSet(KEY_SETTINGS_NOTIFICATION_IPv6)) {
+        lp.set(KEY_SETTINGS_NOTIFICATION_IPv6, true);
+    }
+
+    if (!lp.isSet(KEY_SETTINGS_COUNTRY_BADGE)) {
+        lp.set(KEY_SETTINGS_COUNTRY_BADGE, 'auto');
     }
 
     $('#enableNotifications').prop('checked', lp.get(KEY_SETTINGS_NOTIFICATION));
-    $('#showGoogleMaps').prop('checked', lp.get(KEY_SETTINGS_GMAPS));
+    $('#enableNotificationsIPv6').prop('checked', lp.get(KEY_SETTINGS_NOTIFICATION_IPv6));
+
+    var badgeIndicator = lp.get(KEY_SETTINGS_COUNTRY_BADGE);
+    $("input:radio[name ='indicator'][value='" + badgeIndicator + "']").prop('checked', true);
 }

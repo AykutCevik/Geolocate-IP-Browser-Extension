@@ -1,31 +1,86 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
+<head>
+    <title>IP Geolocator settings</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
-    <title>IP Geolocator</title>
     <script src="js/constants.js" type="text/javascript"></script>
-    <script src="js/lib/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="js/lib/jquery-3.4.1.min.js" type="text/javascript"></script>
     <script src="js/lib/underscore-min.js" type="text/javascript"></script>
     <script src="js/utils/LocalStorageProvider.js" type="text/javascript"></script>
     <script src="js/options.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/material.min.css">
+    <script src="js/lib/material.min.js"></script>
+    <link rel="stylesheet" href="css/material_fonts.css">
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
     <link rel="stylesheet" href="css/main.css"/>
+    <style>
+        .ip-card-square {
+            margin: 0 auto;
+        }
+    </style>
 </head>
+
 <body>
-<fieldset role="group" class="gradient-bg">
-    <legend>IP Geolocator settings page</legend>
-    <div>
-        <input type="checkbox" name="enableNotifications" id="enableNotifications">
-        <label for="enableNotifications">Show notification when IP changes</label>
+
+<div class="ip-card-square mdl-card mdl-shadow--2dp">
+    <div class="mdl-card__title mdl-card--expand">
+        <h2 class="mdl-card__title-text">Settings</h2>
     </div>
-    <div>
-        <input type="checkbox" name="showGoogleMaps" id="showGoogleMaps">
-        <label for="showGoogleMaps">Show Google Maps location as image</label>
+    <div class="mdl-card__supporting-text">
+        <ul class="mdl-list">
+            <li class="mdl-list__item mdl-list__item--two-line">
+                <span class="mdl-list__item-primary-content">
+                  <i class="material-icons  mdl-list__item-icon">notifications</i>
+                    <span>IPv4 address change notification</span>
+                    <span class="mdl-list__item-sub-title">Show a notification when the IPv4 address changes</span>
+                </span>
+                <span class="mdl-list__item-secondary-action">
+                  <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="enableNotifications">
+                    <input type="checkbox" id="enableNotifications" class="mdl-switch__input" checked/>
+                  </label>
+                </span>
+            </li>
+            <li class="mdl-list__item mdl-list__item--two-line">
+                <span class="mdl-list__item-primary-content">
+                  <i class="material-icons  mdl-list__item-icon">notifications</i>
+                    <span>IPv6 address change notification</span>
+                    <span class="mdl-list__item-sub-title">Show a notification when the IPv6 address changes</span>
+                </span>
+                <span class="mdl-list__item-secondary-action">
+                  <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="enableNotificationsIPv6">
+                    <input type="checkbox" id="enableNotificationsIPv6" class="mdl-switch__input" checked/>
+                  </label>
+                </span>
+            </li>
+            <li class="mdl-list__item mdl-list__item--two-line">
+                <span class="mdl-list__item-primary-content">
+                  <i class="material-icons  mdl-list__item-icon">tab</i>
+                    <span>Country indicator</span>
+                    <span class="mdl-list__item-sub-title">Country of selected IP address will be shown</span>
+                </span>
+                <span class="mdl-list__item-secondary-action">
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="c-indicator-auto">
+                          <input type="radio" id="c-indicator-auto" class="mdl-radio__button" name="indicator" value="auto" checked>
+                          <span class="mdl-radio__label">Auto</span>
+                    </label>
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="c-indicator-4">
+                          <input type="radio" id="c-indicator-4" class="mdl-radio__button" name="indicator" value="ipv4">
+                          <span class="mdl-radio__label">IPv4</span>
+                    </label>
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="c-indicator-6">
+                          <input type="radio" id="c-indicator-6" class="mdl-radio__button" name="indicator" value="ipv6">
+                          <span class="mdl-radio__label">IPv6</span>
+                    </label>
+                </span>
+            </li>
+        </ul>
     </div>
-    <div>
-        <input type="button" value="Save" id="btnSaveSettings">
+    <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="btnSaveSettings">
+            Save settings
+        </a>
     </div>
-</fieldset>
+</div>
 </body>
 </html>
