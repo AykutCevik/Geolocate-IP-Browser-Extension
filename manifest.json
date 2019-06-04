@@ -1,6 +1,6 @@
 {
   "name": "IP Address & Geolocation",
-  "version": "1.4",
+  "version": "1.9",
   "manifest_version": 2,
   "icons": {
     "16": "img/icon16.png",
@@ -32,6 +32,9 @@
     }
   },
   "options_ui": {
-    "page": "options.html"
+    "page": "options.html",
+    "browser_style": false,
+    "chrome_style": false,
+    "open_in_tab": true
   }
 }

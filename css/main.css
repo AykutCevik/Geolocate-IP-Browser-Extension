@@ -1,48 +1,28 @@
 body {
-    font-family: sans-serif;
-    font-size: 12pt;
+    overflow: hidden;
 }
 
-.gradient-bg {
-    background: rgba(255, 255, 255, 1);
-    background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(47%, rgba(246, 246, 246, 1)), color-stop(100%, rgba(237, 237, 237, 1)));
-    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
-    background: -o-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
-    background: -ms-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=0);
+.ip-card-square.mdl-card {
+    width: 700px;
 }
 
-.content {
-    margin: 0 auto;
+.ip-card-square > .mdl-card__title {
+    color: #fff;
+    background: url('../img/icon128.png') bottom 45% right 10% no-repeat #191919;
+}
+
+.mdl-data-table {
+    border: 0;
     width: 100%;
-    padding-top: 10px;
-}
-
-.footer {
-    font-size: 9pt;
-    color: darkgray;
-}
-
-.ip-infos {
-    background-color: transparent;
-    width: 100%;
-    font-weight: bold;
-}
-
-.ip-infos td {
-    padding: 4px;
-}
-
-a {
+    font-size: medium;
+    font-weight: lighter;
     color: #000;
-    text-decoration: none;
 }
 
-.external-link {
-    font-size: 10pt;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    text-decoration: underline;
+.mdl-data-table__cell--non-numeric.mdl-data-table__cell--non-numeric {
+    white-space: normal !important;
+}
+
+.mdl-progress {
+    width: 100%;
 }
