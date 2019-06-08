@@ -10,7 +10,6 @@ function fetchGeoLocation() {
         },
         error: function () {
             geoIpV4 = geoLocate;
-            triggerView();
         }
     });
 
@@ -22,7 +21,6 @@ function fetchGeoLocation() {
         },
         error: function () {
             geoIpV6 = geoLocate6;
-            triggerView();
         }
     });
 }

@@ -1,13 +1,13 @@
 {
   "name": "IP Address & Geolocation",
-  "version": "1.9",
+  "version": "1.9.1",
   "manifest_version": 2,
   "icons": {
     "16": "img/icon16.png",
     "48": "img/icon48.png",
     "128": "img/icon128.png"
   },
-  "description": "Shows detailed information about your IP and location.",
+  "description": "Shows your IPv4 & IPv6 address and also geolocational informations about your IP addresses.",
   "background": {
     "page": "background.html"
   },

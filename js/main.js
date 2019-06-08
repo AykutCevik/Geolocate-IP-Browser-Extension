@@ -71,7 +71,7 @@ function fetchGeoLocation() {
                 setBadgeText(geoLocate6.get('geoLocation').countryCode ? geoLocate6.get('geoLocation').countryCode : 'ERR');
         },
         error: function () {
-            if (badgeIndicator === 'ipv6')
+            if (badgeIndicator === 'ipv6' || ipv4Error)
                 setBadgeText('ERR');
         },
         timeout: 2800
