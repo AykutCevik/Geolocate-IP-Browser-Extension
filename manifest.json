@@ -11,10 +11,7 @@
   "background": {
     "page": "background.html"
   },
-  "incognito": "split",
   "minimum_chrome_version": "25",
-  "offline_enabled": false,
-  "options_page": "options.html",
   "permissions": [
     "notifications",
     "storage"
