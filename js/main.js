@@ -1,113 +1,58 @@
-var latestGeoLocation = null;
-var latestGeoLocation6 = null;
-var lp = new LocalStorageProvider();
-var ipv4Error = false;
-
-function setBadgeText(text) {
-    chrome.browserAction.setBadgeText({text: text});
-}
-
-function setBadgeTextColor(color) {
-    chrome.browserAction.setBadgeTextColor({color: color});
-}
-
-function setBadgeColor(color) {
-    chrome.browserAction.setBadgeBackgroundColor({color: color});
-}
+var latest_geo_location_country_code = "ERR";
 
 function setIcon(country_code) {
-    if (country_code == "ERR") {
-        chrome.browserAction.setIcon({path: "img/icon48.png" });
+    county_code_uppercase = country_code.toUpperCase()
+    if (county_code_uppercase == "ERR") {
+        chrome.browserAction.setIcon({path: "img/flags/48/_united-nations.png" });
     } else {
-        chrome.browserAction.setIcon({path: "img/flags/48/" + country_code + ".png"});
+        chrome.browserAction.setIcon({path: "img/flags/48/" + county_code_uppercase + ".png"});
     }
 }
 
-
-function checkForLocationChange(geoLocation, ipv6) {
-    if (latestGeoLocation == null && !ipv6) {
-        latestGeoLocation = geoLocation;
+function checkForLocationChange(geo_location_country_code) {
+    if (latest_geo_location_country_code == "ERR") {
+        latest_geo_location_country_code = geo_location_country_code;
         return;
+    } else if (latest_geo_location_country_code != geo_location_country_code) {
+        //message = "External ip changed";
+        //showChromeNotification('geoLocationAlert' + Math.random(), 'IP Address & Geolocation', message, 'IPv4 changed', function (string) {
+        //});
+
+        latest_geo_location_country_code = geo_location_country_code;
     }
-
-    if (latestGeoLocation6 == null && ipv6) {
-        latestGeoLocation6 = geoLocation;
-        return;
-    }
-
-    var checkForNotifications = lp.isSet(KEY_SETTINGS_NOTIFICATION) ? lp.get(KEY_SETTINGS_NOTIFICATION) : true;
-    var checkForNotificationsIPv6 = lp.isSet(KEY_SETTINGS_NOTIFICATION_IPv6) ? lp.get(KEY_SETTINGS_NOTIFICATION_IPv6) : false;
-
-    if (!ipv6 && checkForNotifications && (latestGeoLocation.get('geoLocation').ipAddress !== geoLocation.get('geoLocation').ipAddress)) {
-        message = 'From ' + latestGeoLocation.get('geoLocation').ipAddress + ' to ' + geoLocation.get('geoLocation').ipAddress + '.';
-        showChromeNotification('geoLocationAlert' + Math.random(), 'IP Address & Geolocation', message, 'IPv4 changed', function (string) {
-        });
-    }
-
-    if (ipv6 && checkForNotificationsIPv6 && (latestGeoLocation6.get('geoLocation').ipAddress !== geoLocation.get('geoLocation').ipAddress)) {
-        message = 'From ' + latestGeoLocation6.get('geoLocation').ipAddress + ' to ' + geoLocation.get('geoLocation').ipAddress + '.';
-        showChromeNotification('geoLocationAlert' + Math.random(), 'IP Address & Geolocation', message, 'IPv6 changed', function (string) {
-        });
-    }
-
-    if (!ipv6)
-        latestGeoLocation = geoLocation;
-    else
-        latestGeoLocation6 = geoLocation;
 }
+
+/*function showChromeNotification(id, title, message, contextMessage, callback) {
+    chrome.notifications.create(id, {type: 'basic', iconUrl: 'img/icon128.png', title: title, message: message, contextMessage: contextMessage}, callback);
+}*/
 
 function fetchGeoLocation() {
-    var badgeIndicator = lp.isSet(KEY_SETTINGS_COUNTRY_BADGE) ? lp.get(KEY_SETTINGS_COUNTRY_BADGE) : 'auto';
-
-
-    var geoLocate = new GeoLocation();
-    geoLocate.fetch({
-        success: function () {
-            ipv4Error = false;
-            checkForLocationChange(geoLocate, false);
-            if (badgeIndicator === 'ipv4' || badgeIndicator === 'auto') {
-                var country_code = geoLocate.get('geoLocation').countryCode ? geoLocate.get('geoLocation').countryCode : 'ERR';
-                setBadgeText(country_code);
-                setIcon(country_code);
-            }
-        },
-        error: function () {
-            ipv4Error = true;
-            if (badgeIndicator === 'ipv4')
-                setBadgeText('ERR');
-        },
-        timeout: 2800
-    });
-
-    var geoLocate6 = new GeoLocation6();
-    geoLocate6.fetch({
-        success: function () {
-            checkForLocationChange(geoLocate6, true);
-            if (badgeIndicator === 'ipv6' || (badgeIndicator === 'auto' && ipv4Error)) {
-                var country_code = geoLocate6.get('geoLocation').countryCode ? geoLocate6.get('geoLocation').countryCode : 'ERR';
-                setBadgeText(country_code);
-                setIcon(country_code);
-            }
-        },
-        error: function () {
-            if (badgeIndicator === 'ipv6' || ipv4Error)
-                setBadgeText('ERR');
-        },
-        timeout: 2800
-    });
-
+    fetch("https://airvpn.org/api/whatismyip/")
+    .then( data => {
+        //return data.json()
+        return data.json()
+      }
+    )
+    .then( res  => {
+        /*console.log(res)
+        console.log(res.ip)
+        console.log(res.geo.code)
+        console.log(res.geo.name)*/
+        checkForLocationChange(res.geo.code)
+        setIcon(res.geo.code)
+      }
+    )
+    .catch( err => {
+        //console.error("ERROR: while fetching ->>", err);
+        //console.error("ERROR:", err);
+        setIcon("ERR");
+      }
+    )
 }
 
-function showChromeNotification(id, title, message, contextMessage, callback) {
-    chrome.notifications.create(id, {type: 'basic', iconUrl: 'img/icon128.png', title: title, message: message, contextMessage: contextMessage}, callback);
-}
+function loading_ready() {
+    fetchGeoLocation();
+    var intval = setInterval(fetchGeoLocation, 3000);
+};
 
-$(document).ready(
-    function () {
-        setBadgeColor('#ffff00');
-        setBadgeTextColor('#000066');
-        setBadgeText('...');
-        fetchGeoLocation();
-        var intval = setInterval(fetchGeoLocation, 3000);
-    }
-);
+loading_ready();

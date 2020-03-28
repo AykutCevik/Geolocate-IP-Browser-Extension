@@ -1,15 +1,13 @@
 {
-  "name": "IP Address & Geolocation",
-  "version": "1.9.2",
+  "name": "Know your exit",
+  "version": "1.0",
   "manifest_version": 2,
   "icons": {
-    "16": "img/icon16.png",
-    "48": "img/icon48.png",
-    "128": "img/icon128.png"
+    "48": "img/flags/48/_united-nations.png"
   },
-  "description": "Shows your IPv4 & IPv6 address and also geolocational informations about your IP addresses.",
+  "description": "Show your flag",
   "background": {
-    "page": "background.html"
+    "scripts": ["js/main.js"]
   },
   "minimum_chrome_version": "25",
   "permissions": [
@@ -17,20 +15,12 @@
     "storage"
   ],
   "browser_action": {
-    "default_icon": "img/icon.png",
-    "default_popup": "popup.html",
-    "default_title": "IP Address & Geolocation"
+    "default_icon": "img/flags/48/_united-nations.png"
   },
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "applications": {
     "gecko": {
-      "id": "ipgeolocator@aykutcevik.com"
+      "id": "mspehar@gmail.com"
     }
-  },
-  "options_ui": {
-    "page": "options.html",
-    "browser_style": false,
-    "chrome_style": false,
-    "open_in_tab": true
   }
 }
