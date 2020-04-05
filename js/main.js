@@ -2,6 +2,7 @@ var latestGeoLocation = null;
 var latestGeoLocation6 = null;
 var lp = new LocalStorageProvider();
 var ipv4Error = false;
+var countriesSupported = ['AD','BA','BY','CV','ET','GN','IM','KR','MD','MW','PA','RU','ST','TT','WS','AE','BB','BZ','CW','EU','GQ','IN','KW','ME','MX','PE','RW','SV','TV','YE','AF','BD','CA','CX','FI','GR','IQ','KY','MF','MY','PF','SA','SX','TW','YT','AG','BE','CC','CY','FJ','GS','IR','KZ','MG','MZ','PG','SB','SY','TZ','ZA','AI','BF','CD','CZ','FK','GT','IS','LA','MH','NA','PH','SC','SZ','UA','ZM','AL','BG','CF','DE','FM','GU','IT','LB','MK','NC','PK','SD','TC','UG','ZW','AM','BH','CG','DJ','FO','GW','JE','LC','ML','NE','PL','SE','TD','US','AN','BI','CH','DK','FR','GY','JM','LI','MM','NF','PN','SG','TF','UY','AO','BJ','CI','DM','GA','HK','JO','LK','MN','NG','PR','SH','TG','UZ','AQ','BL','CK','DO','GB','HN','JP','LR','MO','NI','PS','SI','TH','VA','AR','BM','CL','DZ','GD','HR','KE','LS','MP','NL','PT','SK','TJ','VC','AS','BN','CM','EC','GE','HT','KG','LT','MQ','NO','PW','SL','TK','VE','AT','BO','CN','EE','GG','HU','KH','LU','MR','NP','PY','SM','TL','VG','AU','BR','CO','EG','GH','IC','KI','LV','MS','NR','QA','SN','TM','VI','AW','BS','CR','EH','GI','ID','KM','LY','MT','NU','RE','SO','TN','VN','AX','BT','CT','ER','GL','IE','KN','MA','MU','NZ','RO','SR','TO','VU','AZ','BW','CU','ES','GM','IL','KP','MC','MV','OM','RS','SS','TR','WF'];
 
 function setBadgeText(text) {
     chrome.browserAction.setBadgeText({text: text});
@@ -17,7 +18,7 @@ function setBadgeColor(color) {
 
 function setIcon(country_code) {
     var showFlags = lp.isSet(KEY_SETTINGS_SHOW_FLAGS) ? lp.get(KEY_SETTINGS_SHOW_FLAGS) : true;
-    if (country_code == "ERR" || !showFlags) {
+    if (country_code == "ERR" || !showFlags || !(countriesSupported.includes(country_code))) {
         chrome.browserAction.setIcon({path: "img/icon48.png" });
     } else {
         chrome.browserAction.setIcon({path: "img/flags/48/" + country_code + ".png"});
