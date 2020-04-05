@@ -76,9 +76,10 @@ function fetchGeoLocation() {
         },
         error: function () {
             ipv4Error = true;
-            if (badgeIndicator === 'ipv4')
+            if (badgeIndicator === 'ipv4') {
                 setBadgeText('ERR');
-            setIcon('ERR');
+                setIcon('ERR');
+            }
         },
         timeout: 2800
     });
@@ -94,9 +95,10 @@ function fetchGeoLocation() {
             }
         },
         error: function () {
-            if (badgeIndicator === 'ipv6' || ipv4Error)
+            if (badgeIndicator === 'ipv6' || ipv4Error) {
                 setBadgeText('ERR');
-            setIcon('ERR');
+                setIcon('ERR');
+            }
         },
         timeout: 2800
     });
