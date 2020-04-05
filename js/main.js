@@ -7,9 +7,22 @@ function setBadgeText(text) {
     chrome.browserAction.setBadgeText({text: text});
 }
 
+function setBadgeTextColor(color) {
+    chrome.browserAction.setBadgeTextColor({color: color});
+}
+
 function setBadgeColor(color) {
     chrome.browserAction.setBadgeBackgroundColor({color: color});
 }
+
+function setIcon(country_code) {
+    if (country_code == "ERR") {
+        chrome.browserAction.setIcon({path: "img/icon48.png" });
+    } else {
+        chrome.browserAction.setIcon({path: "img/flags/48/" + country_code + ".png"});
+    }
+}
+
 
 function checkForLocationChange(geoLocation, ipv6) {
     if (latestGeoLocation == null && !ipv6) {
@@ -52,8 +65,11 @@ function fetchGeoLocation() {
         success: function () {
             ipv4Error = false;
             checkForLocationChange(geoLocate, false);
-            if (badgeIndicator === 'ipv4' || badgeIndicator === 'auto')
-                setBadgeText(geoLocate.get('geoLocation').countryCode ? geoLocate.get('geoLocation').countryCode : 'ERR');
+            if (badgeIndicator === 'ipv4' || badgeIndicator === 'auto') {
+                var country_code = geoLocate.get('geoLocation').countryCode ? geoLocate.get('geoLocation').countryCode : 'ERR';
+                setBadgeText(country_code);
+                setIcon(country_code);
+            }
         },
         error: function () {
             ipv4Error = true;
@@ -67,8 +83,11 @@ function fetchGeoLocation() {
     geoLocate6.fetch({
         success: function () {
             checkForLocationChange(geoLocate6, true);
-            if (badgeIndicator === 'ipv6' || (badgeIndicator === 'auto' && ipv4Error))
-                setBadgeText(geoLocate6.get('geoLocation').countryCode ? geoLocate6.get('geoLocation').countryCode : 'ERR');
+            if (badgeIndicator === 'ipv6' || (badgeIndicator === 'auto' && ipv4Error)) {
+                var country_code = geoLocate6.get('geoLocation').countryCode ? geoLocate6.get('geoLocation').countryCode : 'ERR';
+                setBadgeText(country_code);
+                setIcon(country_code);
+            }
         },
         error: function () {
             if (badgeIndicator === 'ipv6' || ipv4Error)
@@ -85,7 +104,8 @@ function showChromeNotification(id, title, message, contextMessage, callback) {
 
 $(document).ready(
     function () {
-        setBadgeColor('#3498db');
+        setBadgeColor('#000000');
+        setBadgeTextColor('#ffffff');
         setBadgeText('...');
         fetchGeoLocation();
         var intval = setInterval(fetchGeoLocation, 3000);
