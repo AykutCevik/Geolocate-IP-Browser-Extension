@@ -104,8 +104,8 @@ function showChromeNotification(id, title, message, contextMessage, callback) {
 
 $(document).ready(
     function () {
-        setBadgeColor('#ffff00');
-        setBadgeTextColor('#000066');
+        setBadgeColor('#000000');
+        setBadgeTextColor('#ffffff');
         setBadgeText('...');
         fetchGeoLocation();
         var intval = setInterval(fetchGeoLocation, 3000);
