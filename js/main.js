@@ -76,6 +76,7 @@ function fetchGeoLocation() {
             ipv4Error = true;
             if (badgeIndicator === 'ipv4')
                 setBadgeText('ERR');
+                setIcon('ERR');
         },
         timeout: 2800
     });
@@ -93,6 +94,7 @@ function fetchGeoLocation() {
         error: function () {
             if (badgeIndicator === 'ipv6' || ipv4Error)
                 setBadgeText('ERR');
+                setIcon('ERR');
         },
         timeout: 2800
     });
