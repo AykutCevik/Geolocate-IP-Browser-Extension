@@ -9,10 +9,10 @@
     <script src="js/lib/underscore-min.js" type="text/javascript"></script>
     <script src="js/lib/backbone-min.js" type="text/javascript"></script>
     <script src="js/utils/LocalStorageProvider.js" type="text/javascript"></script>
-    <script src="js/models/GeoLocation.js" type="text/javascript"></script>
-    <script src="js/popup.js" type="text/javascript"></script>
+    <script src="js/models/GeoLocation.js" type="text/javascript"></script>    
     <link rel="stylesheet" href="css/material.min.css">
     <script src="js/lib/material.min.js"></script>
+    <script src="js/popup.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/material_fonts.css">
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <link rel="stylesheet" href="css/main.css"/>
@@ -27,6 +27,11 @@
             <div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
         </div>
     </div>
+    <div aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button type="button" class="mdl-snackbar__action"></button>
+    </div>
+    
     <div class="mdl-card__actions mdl-card--border">
         <a class="mdl-button mdl-button--icon mdl-js-button" href="options.html" target="_blank" title="Open settings"><i
                 class="material-icons">settings</i></a>
