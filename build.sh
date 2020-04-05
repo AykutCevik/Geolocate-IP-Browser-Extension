@@ -11,6 +11,10 @@ copyDevFunction()
     cp manifest.json ./dev/
     cp options.html ./dev/
     cp popup.html ./dev/
+    rm ./dev/img/Crystal_Clear_app_package_network.png # raw file
+    rm ./dev/img/LICENSE
+    rm ./dev/img/flags/Hello.txt
+    rm ./dev/img/flags/LICENSE.txt
 }
 
 prepareChromeFunction()
