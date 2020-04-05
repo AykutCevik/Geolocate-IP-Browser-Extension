@@ -16,7 +16,8 @@ function setBadgeColor(color) {
 }
 
 function setIcon(country_code) {
-    if (country_code == "ERR") {
+    var showFlags = lp.isSet(KEY_SETTINGS_SHOW_FLAGS) ? lp.get(KEY_SETTINGS_SHOW_FLAGS) : true;
+    if (country_code == "ERR" || !showFlags) {
         chrome.browserAction.setIcon({path: "img/icon48.png" });
     } else {
         chrome.browserAction.setIcon({path: "img/flags/48/" + country_code + ".png"});
