@@ -23,6 +23,17 @@ prepareChromeFunction()
     sed -i -e '28,32d;19d;35d' ./dev/manifest.json
 }
 
+packageChromeFunction()
+{
+    prepareChromeFunction
+    echo "Creating archive for Chrome"
+    cd ./dev/
+    zip -qr chrome.zip ./*
+    cd ..
+    cp ./dev/chrome.zip ./build/
+    echo "Archive created in ./build/"
+}
+
 prepareFirefoxFunction()
 {
     echo "Preparing manifest.json for Firefox"
@@ -33,11 +44,25 @@ prepareFirefoxFunction()
     echo "Package for Firefox in ./dev/ created."
 }
 
+packageFirefoxFunction()
+{    
+    prepareFirefoxFunction
+    echo "Creating archive for Firefox"
+    cp ./dev/firefox.zip ./build/
+}
+
 prepareOperaFunction()
 {
     echo "Preparing manifest.json for Opera"
     echo "Right now it is the same as Chrome, going for it..."
     prepareChromeFunction
+}
+
+packageOperaFunction()
+{
+    prepareOperaFunction
+    cp -rf ./dev/* ./build/
+    echo "Use Opera and select the ./build/ directory and create a signed package."
 }
 
 if [ -z "$1" ] || ([ "$1" != "dev" ] && [ "$1" != "package" ])
@@ -70,7 +95,19 @@ fi
 if [ "$1" == "package" ]
     then
     mkdir -p ./build/
-    echo "To be developed...."
+    rm -rf ./build/*
+    echo "Building package for $2"
+    copyDevFunction
+     if [ "$2" == "chrome" ]
+        then
+        packageChromeFunction
+    elif [ "$2" == "opera" ]
+        then
+        packageOperaFunction
+    else
+        packageFirefoxFunction
+    fi
+    echo "Done, now publish package."
 fi
 
 exit 0
