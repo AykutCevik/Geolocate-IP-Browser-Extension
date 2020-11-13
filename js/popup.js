@@ -59,8 +59,4 @@ function triggerView() {
     $('#ipLocationInfo').html(infosHtml);
 }
 
-$(document).ready(
-    function () {
-        fetchGeoLocation();
-    }
-);
+$(window).on("load", fetchGeoLocation);
