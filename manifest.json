@@ -1,6 +1,6 @@
 {
   "name": "IP Address & Geolocation",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "manifest_version": 2,
   "icons": {
     "16": "img/icon16.png",
@@ -16,7 +16,6 @@
   "offline_enabled": false,
   "options_page": "options.html",
   "permissions": [
-    "storage",
     "notifications"
   ],
   "browser_action": {
