@@ -52,11 +52,28 @@ function fetchGeoLocation() {
 }
 
 function triggerView() {
-    var infosHtml = _.template($('#ipGeoLocationView').html(), {
+    var infosHtml = _.template($('#ipGeoLocationView').html());
+    compiledInfosHtml = infosHtml({
         gl: geoIpV4 ? geoIpV4.toJSON() : new GeoLocation(),
         gl6: geoIpV6 ? geoIpV6.toJSON() : new GeoLocation6()
     });
-    $('#ipLocationInfo').html(infosHtml);
+    $('#ipLocationInfo').html(compiledInfosHtml);
+
+    if (geoIpV4 && geoIpV4.toJSON().geoLocation && geoIpV4.toJSON().geoLocation.latitude != 0) {
+        var mapHtml = _.template($('#ipGeoMapView').html());
+        compiledMapHtml = mapHtml({
+            gl:  geoIpV4.toJSON()
+        });
+        $('#mapIPV4').html(compiledMapHtml);
+    }
+
+    if(geoIpV6 && geoIpV6.toJSON().geoLocation && geoIpV6.toJSON().geoLocation.latitude != 0) {
+        var mapHtml = _.template($('#ipGeoMapView').html());
+        compiledMapHtml = mapHtml({
+            gl:  geoIpV6.toJSON()
+        });
+        $('#mapIPV6').html(compiledMapHtml);
+    }
 }
 
 $(window).on("load", fetchGeoLocation);
