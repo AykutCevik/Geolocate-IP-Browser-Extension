@@ -50,7 +50,7 @@
 
 <script type="text/html" id="ipGeoMapView">
     <a class="mdl-button mdl-js-button mdl-button--icon" title="Open location in OpenStreetMap"
-        href="http://www.openstreetmap.org/?mlat=<%- gl.geoLocation.latitude %>&mlon=<%- gl.geoLocation.longitude %>&zoom=12" target="_blank">
+        href="http://www.openstreetmap.org/?mlat=TlatitudeT&mlon=TlongitudeT&zoom=12" target="_blank">
         <i class="material-icons">map</i>
     </a>
 </script>
@@ -67,33 +67,33 @@
         <tbody>
         <tr>
             <td class="mdl-data-table__cell--non-numeric">IP</td>
-            <td class="mdl-data-table__cell--non-numeric"><%- gl.geoLocation ? gl.geoLocation.ipAddress : null %></td>
-            <td class="mdl-data-table__cell--non-numeric"><%- gl6.geoLocation ? gl6.geoLocation.ipAddress : null %></td>
+            <td class="mdl-data-table__cell--non-numeric">TipAddressT</td>
+            <td class="mdl-data-table__cell--non-numeric">T6ipAddressT6</td>
         </tr>
         <tr>
             <td class="mdl-data-table__cell--non-numeric">City</td>
-            <td class="mdl-data-table__cell--non-numeric"><%- gl.geoLocation ? gl.geoLocation.city : null %></td>
-            <td class="mdl-data-table__cell--non-numeric"><%- gl6.geoLocation ? gl6.geoLocation.city : null %></td>
+            <td class="mdl-data-table__cell--non-numeric">TcityT</td>
+            <td class="mdl-data-table__cell--non-numeric">T6cityT6</td>
         </tr>
         <tr>
             <td class="mdl-data-table__cell--non-numeric">Country</td>
-            <td class="mdl-data-table__cell--non-numeric"><%- gl.geoLocation ? gl.geoLocation.countryName : null %></td>
-            <td class="mdl-data-table__cell--non-numeric"><%- gl6.geoLocation ? gl6.geoLocation.countryName : null %></td>
+            <td class="mdl-data-table__cell--non-numeric">TcountryNameT</td>
+            <td class="mdl-data-table__cell--non-numeric">T6countryNameT6</td>
         </tr>
         <tr>
             <td class="mdl-data-table__cell--non-numeric">Continent</td>
-            <td class="mdl-data-table__cell--non-numeric"><%- gl.geoLocation ? gl.geoLocation.continent : null %></td>
-            <td class="mdl-data-table__cell--non-numeric"><%- gl6.geoLocation ? gl6.geoLocation.continent : null %></td>
+            <td class="mdl-data-table__cell--non-numeric">TcontinentT</td>
+            <td class="mdl-data-table__cell--non-numeric">T6continentT6</td>
         </tr>
         <tr>
             <td class="mdl-data-table__cell--non-numeric">Timezone</td>
-            <td class="mdl-data-table__cell--non-numeric"><%- gl.geoLocation ? gl.geoLocation.timezone : null %></td>
-            <td class="mdl-data-table__cell--non-numeric"><%- gl6.geoLocation ? gl6.geoLocation.timezone : null %></td>
+            <td class="mdl-data-table__cell--non-numeric">TtimezoneT</td>
+            <td class="mdl-data-table__cell--non-numeric">T6timezoneT6</td>
         </tr>
         <tr>
             <td class="mdl-data-table__cell--non-numeric">User agent</td>
-            <td class="mdl-data-table__cell--non-numeric"><%- gl.geoLocation ? gl.browser.userAgent : null %></td>
-            <td class="mdl-data-table__cell--non-numeric"><%- gl6.geoLocation ? gl6.browser.userAgent : null %></td>
+            <td class="mdl-data-table__cell--non-numeric">TuserAgentT</td>
+            <td class="mdl-data-table__cell--non-numeric">T6userAgentT6</td>
         </tr>
         </tbody>
     </table>

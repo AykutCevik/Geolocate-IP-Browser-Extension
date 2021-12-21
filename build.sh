@@ -20,7 +20,7 @@ copyDevFunction()
 prepareChromeFunction()
 {
     echo "Preparing manifest.json for Chrome"
-    sed -i -e '28,32d;19d;35d' ./dev/manifest.json
+    sed -i -e '27,31d;35d' ./dev/manifest.json
 }
 
 packageChromeFunction()

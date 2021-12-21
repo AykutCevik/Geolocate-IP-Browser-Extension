@@ -51,27 +51,32 @@ function fetchGeoLocation() {
     });
 }
 
+function compileHtml(html, obj, clip) {
+    for (var prop in obj) {
+        html = html.replace(new RegExp(clip + prop + clip, 'g'), obj[prop] ? obj[prop] : '');
+    }
+    return html;
+}
+
 function triggerView() {
-    var infosHtml = _.template($('#ipGeoLocationView').html());
-    compiledInfosHtml = infosHtml({
-        gl: geoIpV4 ? geoIpV4.toJSON() : new GeoLocation(),
-        gl6: geoIpV6 ? geoIpV6.toJSON() : new GeoLocation6()
-    });
+    var infosHtml = $('#ipGeoLocationView').html();
+    var gIPv4 = (geoIpV4 ? geoIpV4.toJSON() : new GeoLocation().toJSON());
+    var gIPv6 = (geoIpV6 ? geoIpV6.toJSON() : new GeoLocation6().toJSON());
+    compiledInfosHtml = compileHtml(infosHtml, gIPv4.geoLocation, 'T');
+    compiledInfosHtml = compileHtml(compiledInfosHtml, gIPv4.browser, 'T');
+    compiledInfosHtml = compileHtml(compiledInfosHtml, gIPv6.geoLocation, 'T6');
+    compiledInfosHtml = compileHtml(compiledInfosHtml, gIPv6.browser, 'T6');
     $('#ipLocationInfo').html(compiledInfosHtml);
 
     if (geoIpV4 && geoIpV4.toJSON().geoLocation && geoIpV4.toJSON().geoLocation.latitude != 0) {
-        var mapHtml = _.template($('#ipGeoMapView').html());
-        compiledMapHtml = mapHtml({
-            gl:  geoIpV4.toJSON()
-        });
+        var mapHtml = $('#ipGeoMapView').html();
+        compiledMapHtml = compileHtml(mapHtml, geoIpV4.toJSON().geoLocation, 'T');
         $('#mapIPV4').html(compiledMapHtml);
     }
 
-    if(geoIpV6 && geoIpV6.toJSON().geoLocation && geoIpV6.toJSON().geoLocation.latitude != 0) {
-        var mapHtml = _.template($('#ipGeoMapView').html());
-        compiledMapHtml = mapHtml({
-            gl:  geoIpV6.toJSON()
-        });
+    if (geoIpV6 && geoIpV6.toJSON().geoLocation && geoIpV6.toJSON().geoLocation.latitude != 0) {
+        var mapHtml = $('#ipGeoMapView').html();
+        compiledMapHtml = compileHtml(mapHtml, geoIpV6.toJSON().geoLocation, 'T');
         $('#mapIPV6').html(compiledMapHtml);
     }
 }
