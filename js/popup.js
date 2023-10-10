@@ -1,54 +1,65 @@
-var geoIpV4 = null;
-var geoIpV6 = null;
-var ipv4IsFetching = true;
-var ipv6IsFetching = true;
+/*
+Generic error logger.
+*/
+function onError(e) {
+    console.error(e);
+}
 
 function reloadPopup() {
     window.location.reload();
 }
 
 function handleError() {
-    if (geoIpV4 == null && geoIpV6 == null && !ipv4IsFetching && !ipv6IsFetching) {
-        setTimeout(function () { // https://github.com/google/material-design-lite/issues/1995
-            // connection issue            
-            var snackbarContainer = document.querySelector('.mdl-js-snackbar');
-            var data = {
-                message: 'Network error occured.',
-                timeout: 20000,
-                actionHandler: reloadPopup,
-                actionText: 'Retry'
-            };
-            snackbarContainer.MaterialSnackbar.showSnackbar(data);
-        }, 1);
-    }
+    browser.storage.local.get().then(settings => {
+        if ((typeof settings.geoIpV4 == "undefined" || settings.geoIpV4 == null) && (typeof settings.geoIpV6 == "undefined" || settings.geoIpV6 == null) && (typeof settings.ipv4IsFetching == "undefined" || !settings.ipv4IsFetching) && (typeof settings.ipv6IsFetching == "undefined" || !settings.ipv6IsFetching)) {
+            setTimeout(function () { // https://github.com/google/material-design-lite/issues/1995
+                // connection issue            
+                var snackbarContainer = document.querySelector('.mdl-js-snackbar');
+                var data = {
+                    message: 'Network error occured.',
+                    timeout: 20000,
+                    actionHandler: reloadPopup,
+                    actionText: 'Retry'
+                };
+                snackbarContainer.MaterialSnackbar.showSnackbar(data);
+            }, 1);
+        }
+    }, onError)
+    
 }
 
 function fetchGeoLocation() {
-    var geoLocate = new GeoLocation();
-    geoLocate.fetch({
-        success: function () {
-            geoIpV4 = geoLocate;
-            triggerView();
-        },
-        error: function () {
-            geoIpV4 = null;
-            ipv4IsFetching = false;
-            handleError();
-        }
-    });
+    browser.storage.local.get().then(settings => {
+        var geoLocate = new GeoLocation();
+        geoLocate.fetch({
+            success: function () {
+                settings.geoIpV4 = geoLocate.toJSON();
+                browser.storage.local.set(settings).then(() => {}, onError);
+                triggerView();
+            },
+            error: function () {
+                settings.geoIpV4 = null;
+                settings.ipv4IsFetching = false;
+                browser.storage.local.set(settings).then(() => {}, onError);
+                handleError();
+            }
+        });
 
-    var geoLocate6 = new GeoLocation6();
-    geoLocate6.fetch({
-        success: function () {
-            geoIpV6 = geoLocate6;
-            triggerView();
-        },
-        error: function () {
-            geoIpV6 = null;
-            ipv6IsFetching = false;
-            handleError();
-        }
-    });
+        var geoLocate6 = new GeoLocation6();
+        geoLocate6.fetch({
+            success: function () {
+                settings.geoIpV6 = geoLocate6.toJSON()
+                browser.storage.local.set(settings).then(() => {}, onError);
+                triggerView();
+            },
+            error: function () {
+                settings.geoIpV6 = null;
+                settings.ipv6IsFetching = false;
+                browser.storage.local.set(settings).then(() => {}, onError);
+                handleError();
+            }
+        });
+    }, onError)
 }
 
 function compileHtml(html, obj, clip) {
@@ -60,25 +71,30 @@ function compileHtml(html, obj, clip) {
 
 function triggerView() {
     var infosHtml = $('#ipGeoLocationView').html();
-    var gIPv4 = (geoIpV4 ? geoIpV4.toJSON() : new GeoLocation().toJSON());
-    var gIPv6 = (geoIpV6 ? geoIpV6.toJSON() : new GeoLocation6().toJSON());
-    compiledInfosHtml = compileHtml(infosHtml, gIPv4.geoLocation, 'T');
-    compiledInfosHtml = compileHtml(compiledInfosHtml, gIPv4.browser, 'T');
-    compiledInfosHtml = compileHtml(compiledInfosHtml, gIPv6.geoLocation, 'T6');
-    compiledInfosHtml = compileHtml(compiledInfosHtml, gIPv6.browser, 'T6');
-    $('#ipLocationInfo').html(compiledInfosHtml);
+    chrome.runtime.sendMessage({contentScriptQuery: "queryIpv4"}, gIPv4 => {
+        chrome.runtime.sendMessage({contentScriptQuery: "queryIpv6"}, gIPv6 => {
+            browser.storage.local.get().then(settings => {
+                compiledInfosHtml = compileHtml(infosHtml, gIPv4.geoLocation, 'T');
+                compiledInfosHtml = compileHtml(compiledInfosHtml, gIPv4.browser, 'T');
+                compiledInfosHtml = compileHtml(compiledInfosHtml, gIPv6.geoLocation, 'T6');
+                compiledInfosHtml = compileHtml(compiledInfosHtml, gIPv6.browser, 'T6');
+                $('#ipLocationInfo').html(compiledInfosHtml);
 
-    if (geoIpV4 && geoIpV4.toJSON().geoLocation && geoIpV4.toJSON().geoLocation.latitude != 0) {
-        var mapHtml = $('#ipGeoMapView').html();
-        compiledMapHtml = compileHtml(mapHtml, geoIpV4.toJSON().geoLocation, 'T');
-        $('#mapIPV4').html(compiledMapHtml);
-    }
+                if (typeof settings.geoIpV4 != "undefined" && typeof settings.geoIpV4.geoLocation != "undefined" && settings.geoIpV4 && settings.geoIpV4.geoLocation && settings.geoIpV4.geoLocation.latitude != 0) {
+                    var mapHtml = $('#ipGeoMapView').html();
+                    compiledMapHtml = compileHtml(mapHtml, settings.geoIpV4.geoLocation, 'T');
+                    $('#mapIPV4').html(compiledMapHtml);
+                }
 
-    if (geoIpV6 && geoIpV6.toJSON().geoLocation && geoIpV6.toJSON().geoLocation.latitude != 0) {
-        var mapHtml = $('#ipGeoMapView').html();
-        compiledMapHtml = compileHtml(mapHtml, geoIpV6.toJSON().geoLocation, 'T');
-        $('#mapIPV6').html(compiledMapHtml);
-    }
+                if (typeof settings.geoIpV6 != "undefined" && typeof settings.geoIpV6.geoLocation != "undefined" && settings.geoIpV6 && settings.geoIpV6.geoLocation && settings.geoIpV6.geoLocation.latitude != 0) {
+                    var mapHtml = $('#ipGeoMapView').html();
+                    compiledMapHtml = compileHtml(mapHtml, settings.geoIpV6.geoLocation, 'T');
+                    $('#mapIPV6').html(compiledMapHtml);
+                }
+            }, onError)
+            
+        });
+    });
 }
 
 $(window).on("load", fetchGeoLocation);

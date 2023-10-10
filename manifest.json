@@ -1,7 +1,7 @@
 {
   "name": "IP Address & Geolocation",
-  "version": "2.1.0",
-  "manifest_version": 2,
+  "version": "2.2.0",
+  "manifest_version": 3,
   "icons": {
     "16": "img/icon16.png",
     "48": "img/icon48.png",
@@ -11,28 +11,31 @@
   "background": {
     "page": "background.html"
   },
-  "incognito": "split",
+  "incognito": "spanning",
   "minimum_chrome_version": "25",
-  "offline_enabled": false,
-  "options_page": "options.html",
   "permissions": [
-    "notifications"
+    "notifications",
+    "storage"
   ],
-  "browser_action": {
+  "host_permissions": [
+    "*://*.aykutcevik.com:9443/*",
+    "*://*.aykutcevik.com:8443/*"
+  ],
+  "action": {
     "default_icon": "img/icon.png",
     "default_popup": "popup.html",
     "default_title": "IP Address & Geolocation"
   },
-  "content_security_policy": "script-src 'self'; object-src 'self'",
-  "applications": {
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; script-src 'self'; object-src 'self'; connect-src https://*.aykutcevik.com:*;"
+  },
+  "browser_specific_settings": {
     "gecko": {
       "id": "ipgeolocator@aykutcevik.com"
     }
   },
   "options_ui": {
     "page": "options.html",
-    "browser_style": false,
-    "chrome_style": false,
     "open_in_tab": true
   }
 }
