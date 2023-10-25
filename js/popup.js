@@ -80,13 +80,13 @@ function triggerView() {
                 compiledInfosHtml = compileHtml(compiledInfosHtml, gIPv6.browser, 'T6');
                 $('#ipLocationInfo').html(compiledInfosHtml);
 
-                if (typeof settings.geoIpV4 != "undefined" && typeof settings.geoIpV4.geoLocation != "undefined" && settings.geoIpV4 && settings.geoIpV4.geoLocation && settings.geoIpV4.geoLocation.latitude != 0) {
+                if (typeof settings.geoIpV4 != "undefined" && settings.geoIpV4 != null && typeof settings.geoIpV4.geoLocation != "undefined" && settings.geoIpV4.geoLocation && settings.geoIpV4.geoLocation.latitude != 0) {
                     var mapHtml = $('#ipGeoMapView').html();
                     compiledMapHtml = compileHtml(mapHtml, settings.geoIpV4.geoLocation, 'T');
                     $('#mapIPV4').html(compiledMapHtml);
                 }
 
-                if (typeof settings.geoIpV6 != "undefined" && typeof settings.geoIpV6.geoLocation != "undefined" && settings.geoIpV6 && settings.geoIpV6.geoLocation && settings.geoIpV6.geoLocation.latitude != 0) {
+                if (typeof settings.geoIpV6 != "undefined" && settings.geoIpV6 != null && typeof settings.geoIpV6.geoLocation != "undefined" && settings.geoIpV6.geoLocation && settings.geoIpV6.geoLocation.latitude != 0) {
                     var mapHtml = $('#ipGeoMapView').html();
                     compiledMapHtml = compileHtml(mapHtml, settings.geoIpV6.geoLocation, 'T');
                     $('#mapIPV6').html(compiledMapHtml);
