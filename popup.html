@@ -1,61 +1,63 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>IP Geolocator</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
     <script src="js/constants.js" type="text/javascript"></script>
-    <script src="js/lib/jquery-3.4.1.min.js" type="text/javascript"></script>
-    <script src="js/lib/underscore-umd-min.js" type="text/javascript"></script>
-    <script src="js/lib/backbone-min.js" type="text/javascript"></script>
     <script src="js/utils/LocalStorageProvider.js" type="text/javascript"></script>
-    <script src="js/models/GeoLocation.js" type="text/javascript"></script>    
+    <script src="js/models/GeoLocation.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/material.min.css">
-    <script src="js/lib/material.min.js"></script>
+    
     <script src="js/popup.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/material_fonts.css">
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/main.css" />
 </head>
+
 <body>
-<div class="ip-card-square mdl-card mdl-shadow--2dp">
-    <div class="mdl-card__title mdl-card--expand">
-        <h2 class="mdl-card__title-text">IP Address & Geolocation</h2>
-    </div>
-    <div class="mdl-card__supporting-text">
-        <div id="ipLocationInfo">
-            <div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+    <div class="ip-card-square mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title mdl-card--expand">
+            <h2 class="mdl-card__title-text">IP Address & Geolocation</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <div id="ipLocationInfo">
+                <div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+            </div>
+        </div>
+        <div aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
+            <div class="mdl-snackbar__text"></div>
+            <button type="button" class="mdl-snackbar__action"></button>
+        </div>
+
+        <div class="mdl-card__actions mdl-card--border">
+            <a class="mdl-button mdl-button--icon mdl-js-button" href="options.html" target="_blank"
+                title="Open settings"><i class="material-icons">settings</i></a>
+            <a class="mdl-button mdl-button--icon mdl-js-button" href="https://panopticlick.eff.org/" target="_blank"
+                title="Check browser fingerprint"><i class="material-icons">fingerprint</i></a>
+            <a class="mdl-button mdl-button--icon mdl-js-button" href="https://dnsleaktest.com/" target="_blank"
+                title="Check for DNS leaks"><i class="material-icons">find_in_page</i></a>
+            <a class="mdl-button mdl-button--icon mdl-js-button"
+                href="https://www.google.com/intl/en/ipv6/statistics.html" target="_blank" title="View IPv6 adoption"><i
+                    class="material-icons">bar_chart</i></a>
+            <a class="mdl-button mdl-button--icon mdl-js-button"
+                href="https://github.com/AykutCevik/Geolocate-IP-Browser-Extension" target="_blank"
+                title="View code on GitHub"><i class="material-icons">code</i></a>
+            <a class="mdl-button mdl-button--icon mdl-js-button"
+                href="https://play.google.com/store/apps/details?id=com.aykutcevik.ipgeolocator" target="_blank"
+                title="Android app"><i class="material-icons">android</i></a>
         </div>
     </div>
-    <div aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
-        <div class="mdl-snackbar__text"></div>
-        <button type="button" class="mdl-snackbar__action"></button>
-    </div>
-    
-    <div class="mdl-card__actions mdl-card--border">
-        <a class="mdl-button mdl-button--icon mdl-js-button" href="options.html" target="_blank" title="Open settings"><i
-                class="material-icons">settings</i></a>
-        <a class="mdl-button mdl-button--icon mdl-js-button" href="https://panopticlick.eff.org/" target="_blank" title="Check browser fingerprint"><i
-                class="material-icons">fingerprint</i></a>
-        <a class="mdl-button mdl-button--icon mdl-js-button" href="https://dnsleaktest.com/" target="_blank" title="Check for DNS leaks"><i
-                class="material-icons">find_in_page</i></a>
-        <a class="mdl-button mdl-button--icon mdl-js-button" href="https://www.google.com/intl/en/ipv6/statistics.html" target="_blank"
-           title="View IPv6 adoption"><i class="material-icons">bar_chart</i></a>
-        <a class="mdl-button mdl-button--icon mdl-js-button" href="https://github.com/AykutCevik/Geolocate-IP-Browser-Extension" target="_blank"
-           title="View code on GitHub"><i class="material-icons">code</i></a>
-        <a class="mdl-button mdl-button--icon mdl-js-button" href="https://play.google.com/store/apps/details?id=com.aykutcevik.ipgeolocator" target="_blank"
-           title="Android app"><i class="material-icons">android</i></a>
-    </div>
-</div>
 
-<script type="text/html" id="ipGeoMapView">
+    <script type="text/html" id="ipGeoMapView">
     <a class="mdl-button mdl-js-button mdl-button--icon" title="Open location in OpenStreetMap"
         href="http://www.openstreetmap.org/?mlat=TlatitudeT&mlon=TlongitudeT&zoom=12" target="_blank">
         <i class="material-icons">map</i>
     </a>
 </script>
 
-<script type="text/html" id="ipGeoLocationView">
+    <script type="text/html" id="ipGeoLocationView">
     <table class="mdl-data-table mdl-js-data-table">
         <thead>
         <tr>
@@ -100,4 +102,5 @@
 </script>
 
 </body>
+
 </html>

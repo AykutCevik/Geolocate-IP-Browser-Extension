@@ -1,7 +1,7 @@
-var geoIpV4 = null;
-var geoIpV6 = null;
-var ipv4IsFetching = true;
-var ipv6IsFetching = true;
+let geoIpV4 = null;
+let geoIpV6 = null;
+let ipv4IsFetching = true;
+let ipv6IsFetching = true;
 
 function reloadPopup() {
     window.location.reload();
@@ -11,8 +11,8 @@ function handleError() {
     if (geoIpV4 == null && geoIpV6 == null && !ipv4IsFetching && !ipv6IsFetching) {
         setTimeout(function () { // https://github.com/google/material-design-lite/issues/1995
             // connection issue            
-            var snackbarContainer = document.querySelector('.mdl-js-snackbar');
-            var data = {
+            let snackbarContainer = document.querySelector('.mdl-js-snackbar');
+            let data = {
                 message: 'Network error occured.',
                 timeout: 20000,
                 actionHandler: reloadPopup,
@@ -24,27 +24,29 @@ function handleError() {
 }
 
 function fetchGeoLocation() {
-    var geoLocate = new GeoLocation();
+    let geoLocate = new GeoLocation();
     geoLocate.fetch({
         success: function () {
             geoIpV4 = geoLocate;
+            //ipv4IsFetching = false;
             triggerView();
         },
         error: function () {
-            geoIpV4 = null;
+            //geoIpV4 = null;
             ipv4IsFetching = false;
             handleError();
         }
     });
 
-    var geoLocate6 = new GeoLocation6();
+    let geoLocate6 = new GeoLocation6();
     geoLocate6.fetch({
         success: function () {
             geoIpV6 = geoLocate6;
+            //ipv6IsFetching = false;
             triggerView();
         },
         error: function () {
-            geoIpV6 = null;
+            //geoIpV6 = null;
             ipv6IsFetching = false;
             handleError();
         }
@@ -52,33 +54,33 @@ function fetchGeoLocation() {
 }
 
 function compileHtml(html, obj, clip) {
-    for (var prop in obj) {
+    for (let prop in obj) {
         html = html.replace(new RegExp(clip + prop + clip, 'g'), obj[prop] ? obj[prop] : '');
     }
     return html;
 }
 
 function triggerView() {
-    var infosHtml = $('#ipGeoLocationView').html();
-    var gIPv4 = (geoIpV4 ? geoIpV4.toJSON() : new GeoLocation().toJSON());
-    var gIPv6 = (geoIpV6 ? geoIpV6.toJSON() : new GeoLocation6().toJSON());
+    let infosHtml = document.getElementById('ipGeoLocationView').innerHTML;
+    let gIPv4 = (geoIpV4 ? geoIpV4.toJSON() : new GeoLocation().toJSON());
+    let gIPv6 = (geoIpV6 ? geoIpV6.toJSON() : new GeoLocation6().toJSON());
     compiledInfosHtml = compileHtml(infosHtml, gIPv4.geoLocation, 'T');
     compiledInfosHtml = compileHtml(compiledInfosHtml, gIPv4.browser, 'T');
     compiledInfosHtml = compileHtml(compiledInfosHtml, gIPv6.geoLocation, 'T6');
     compiledInfosHtml = compileHtml(compiledInfosHtml, gIPv6.browser, 'T6');
-    $('#ipLocationInfo').html(compiledInfosHtml);
+    document.getElementById('ipLocationInfo').innerHTML = compiledInfosHtml;
 
     if (geoIpV4 && geoIpV4.toJSON().geoLocation && geoIpV4.toJSON().geoLocation.latitude != 0) {
-        var mapHtml = $('#ipGeoMapView').html();
+        let mapHtml = document.getElementById('ipGeoMapView').innerHTML;
         compiledMapHtml = compileHtml(mapHtml, geoIpV4.toJSON().geoLocation, 'T');
-        $('#mapIPV4').html(compiledMapHtml);
+        document.getElementById('mapIPV4').innerHTML = compiledMapHtml;
     }
 
     if (geoIpV6 && geoIpV6.toJSON().geoLocation && geoIpV6.toJSON().geoLocation.latitude != 0) {
-        var mapHtml = $('#ipGeoMapView').html();
+        let mapHtml = document.getElementById('ipGeoMapView').innerHTML;
         compiledMapHtml = compileHtml(mapHtml, geoIpV6.toJSON().geoLocation, 'T');
-        $('#mapIPV6').html(compiledMapHtml);
+        document.getElementById('mapIPV6').innerHTML = compiledMapHtml;
     }
 }
 
-$(window).on("load", fetchGeoLocation);
+window.addEventListener("load", fetchGeoLocation);

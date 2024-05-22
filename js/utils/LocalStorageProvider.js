@@ -1,46 +1,79 @@
-/**
- * localStorage abstraction class
- * @returns {LocalStorageProvider}
- */
 function LocalStorageProvider() {
-    /**
-     * Saves an object
-     * @param {String} key
-     * @param {Object} object
-     * @returns {void}
-     */
     this.set = function(key, object) {
-        localStorage[key] = JSON.stringify(object);
+        return new Promise((resolve, reject) => {
+            let item = {};
+            item[key] = JSON.stringify(object);
+            if (typeof chrome !== 'undefined' && chrome.storage) {
+                chrome.storage.local.set(item, resolve);
+            } else {
+                chrome.runtime.sendMessage({method: "set", key: key, value: item[key]}, (response) => {
+                    if (response.error) {
+                        reject(response.error);
+                    } else {
+                        resolve();
+                    }
+                });
+            }
+        });
     };
-    /**
-     * 
-     * @param {String} key
-     * @returns {Object} According to you input
-     */
+
     this.get = function(key) {
-        return JSON.parse(localStorage[key]);
+        return new Promise((resolve, reject) => {
+            if (typeof chrome !== 'undefined' && chrome.storage) {
+                chrome.storage.local.get(key, function(result) {
+                    if (result[key] !== undefined) {
+                        resolve(JSON.parse(result[key]));
+                    } else {
+                        resolve(null);
+                    }
+                });
+            } else {
+                chrome.runtime.sendMessage({method: "get", key: key}, (response) => {
+                    if (response.error) {
+                        reject(response.error);
+                    } else {
+                        if (response.data !== undefined) {
+                            resolve(JSON.parse(response.data));
+                        } else {
+                            resolve(null);
+                        }
+                    }
+                });
+            }
+        });
     };
-    /**
-     * Checks whether an key is set or not
-     * @param {String} key
-     * @returns {Boolean} true, if the key exists
-     */
+
     this.isSet = function(key) {
-        return key in localStorage;
+        return new Promise((resolve, reject) => {
+            if (typeof chrome !== 'undefined' && chrome.storage) {
+                chrome.storage.local.get(key, function(result) {
+                    resolve(key in result);
+                });
+            } else {
+                chrome.runtime.sendMessage({method: "isSet", key: key}, (response) => {
+                    if (response.error) {
+                        reject(response.error);
+                    } else {
+                        resolve(response.data);
+                    }
+                });
+            }
+        });
     };
-    /**
-     * 
-     * @param {String} key
-     * @returns {void}
-     */
+
     this.remove = function(key) {
-        localStorage.removeItem(key);
-    };
-    /**
-     * 
-     * @returns {void}
-     */
-    this.removeAll = function() {
-        localStorage.clear();
+        return new Promise((resolve, reject) => {
+            if (typeof chrome !== 'undefined' && chrome.storage) {
+                chrome.storage.local.remove(key, resolve);
+            } else {
+                chrome.runtime.sendMessage({method: "remove", key: key}, (response) => {
+                    if (response.error) {
+                        reject(response.error);
+                    } else {
+                        resolve();
+                    }
+                });
+            }
+        });
     };
 }

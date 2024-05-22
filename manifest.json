@@ -1,7 +1,7 @@
 {
   "name": "IP Address & Geolocation",
-  "version": "2.1.0",
-  "manifest_version": 2,
+  "version": "3.0.0",
+  "manifest_version": 3,
   "icons": {
     "16": "img/icon16.png",
     "48": "img/icon48.png",
@@ -9,30 +9,23 @@
   },
   "description": "Shows your IPv4 & IPv6 address and also geolocational informations about your IP addresses.",
   "background": {
-    "page": "background.html"
+    "service_worker": "background.js"
   },
-  "incognito": "split",
-  "minimum_chrome_version": "25",
-  "offline_enabled": false,
-  "options_page": "options.html",
-  "permissions": [
-    "notifications"
-  ],
-  "browser_action": {
+  "action": {
     "default_icon": "img/icon.png",
     "default_popup": "popup.html",
     "default_title": "IP Address & Geolocation"
   },
-  "content_security_policy": "script-src 'self'; object-src 'self'",
-  "applications": {
-    "gecko": {
-      "id": "ipgeolocator@aykutcevik.com"
-    }
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
   },
+  "permissions": [
+    "notifications",
+    "storage"
+  ],
+  "minimum_chrome_version": "88",
   "options_ui": {
     "page": "options.html",
-    "browser_style": false,
-    "chrome_style": false,
     "open_in_tab": true
   }
 }

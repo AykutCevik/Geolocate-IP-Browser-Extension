@@ -1,33 +1,33 @@
-var latestGeoLocation = null;
-var latestGeoLocation6 = null;
-var lp = new LocalStorageProvider();
-var ipv4Error = false;
-var countriesSupported = ['AD', 'BA', 'BY', 'CV', 'ET', 'GN', 'IM', 'KR', 'MD', 'MW', 'PA', 'RU', 'ST', 'TT', 'WS', 'AE', 'BB', 'BZ', 'CW', 'EU', 'GQ', 'IN', 'KW', 'ME', 'MX', 'PE', 'RW', 'SV', 'TV', 'YE', 'AF', 'BD', 'CA', 'CX', 'FI', 'GR', 'IQ', 'KY', 'MF', 'MY', 'PF', 'SA', 'SX', 'TW', 'YT', 'AG', 'BE', 'CC', 'CY', 'FJ', 'GS', 'IR', 'KZ', 'MG', 'MZ', 'PG', 'SB', 'SY', 'TZ', 'ZA', 'AI', 'BF', 'CD', 'CZ', 'FK', 'GT', 'IS', 'LA', 'MH', 'NA', 'PH', 'SC', 'SZ', 'UA', 'ZM', 'AL', 'BG', 'CF', 'DE', 'FM', 'GU', 'IT', 'LB', 'MK', 'NC', 'PK', 'SD', 'TC', 'UG', 'ZW', 'AM', 'BH', 'CG', 'DJ', 'FO', 'GW', 'JE', 'LC', 'ML', 'NE', 'PL', 'SE', 'TD', 'US', 'AN', 'BI', 'CH', 'DK', 'FR', 'GY', 'JM', 'LI', 'MM', 'NF', 'PN', 'SG', 'TF', 'UY', 'AO', 'BJ', 'CI', 'DM', 'GA', 'HK', 'JO', 'LK', 'MN', 'NG', 'PR', 'SH', 'TG', 'UZ', 'AQ', 'BL', 'CK', 'DO', 'GB', 'HN', 'JP', 'LR', 'MO', 'NI', 'PS', 'SI', 'TH', 'VA', 'AR', 'BM', 'CL', 'DZ', 'GD', 'HR', 'KE', 'LS', 'MP', 'NL', 'PT', 'SK', 'TJ', 'VC', 'AS', 'BN', 'CM', 'EC', 'GE', 'HT', 'KG', 'LT', 'MQ', 'NO', 'PW', 'SL', 'TK', 'VE', 'AT', 'BO', 'CN', 'EE', 'GG', 'HU', 'KH', 'LU', 'MR', 'NP', 'PY', 'SM', 'TL', 'VG', 'AU', 'BR', 'CO', 'EG', 'GH', 'IC', 'KI', 'LV', 'MS', 'NR', 'QA', 'SN', 'TM', 'VI', 'AW', 'BS', 'CR', 'EH', 'GI', 'ID', 'KM', 'LY', 'MT', 'NU', 'RE', 'SO', 'TN', 'VN', 'AX', 'BT', 'CT', 'ER', 'GL', 'IE', 'KN', 'MA', 'MU', 'NZ', 'RO', 'SR', 'TO', 'VU', 'AZ', 'BW', 'CU', 'ES', 'GM', 'IL', 'KP', 'MC', 'MV', 'OM', 'RS', 'SS', 'TR', 'WF'];
+let latestGeoLocation = null;
+let latestGeoLocation6 = null;
+const lp = new LocalStorageProvider();
+let ipv4Error = false;
+const countriesSupported = ['AD', 'BA', 'BY', 'CV', 'ET', 'GN', 'IM', 'KR', 'MD', 'MW', 'PA', 'RU', 'ST', 'TT', 'WS', 'AE', 'BB', 'BZ', 'CW', 'EU', 'GQ', 'IN', 'KW', 'ME', 'MX', 'PE', 'RW', 'SV', 'TV', 'YE', 'AF', 'BD', 'CA', 'CX', 'FI', 'GR', 'IQ', 'KY', 'MF', 'MY', 'PF', 'SA', 'SX', 'TW', 'YT', 'AG', 'BE', 'CC', 'CY', 'FJ', 'GS', 'IR', 'KZ', 'MG', 'MZ', 'PG', 'SB', 'SY', 'TZ', 'ZA', 'AI', 'BF', 'CD', 'CZ', 'FK', 'GT', 'IS', 'LA', 'MH', 'NA', 'PH', 'SC', 'SZ', 'UA', 'ZM', 'AL', 'BG', 'CF', 'DE', 'FM', 'GU', 'IT', 'LB', 'MK', 'NC', 'PK', 'SD', 'TC', 'UG', 'ZW', 'AM', 'BH', 'CG', 'DJ', 'FO', 'GW', 'JE', 'LC', 'ML', 'NE', 'PL', 'SE', 'TD', 'US', 'AN', 'BI', 'CH', 'DK', 'FR', 'GY', 'JM', 'LI', 'MM', 'NF', 'PN', 'SG', 'TF', 'UY', 'AO', 'BJ', 'CI', 'DM', 'GA', 'HK', 'JO', 'LK', 'MN', 'NG', 'PR', 'SH', 'TG', 'UZ', 'AQ', 'BL', 'CK', 'DO', 'GB', 'HN', 'JP', 'LR', 'MO', 'NI', 'PS', 'SI', 'TH', 'VA', 'AR', 'BM', 'CL', 'DZ', 'GD', 'HR', 'KE', 'LS', 'MP', 'NL', 'PT', 'SK', 'TJ', 'VC', 'AS', 'BN', 'CM', 'EC', 'GE', 'HT', 'KG', 'LT', 'MQ', 'NO', 'PW', 'SL', 'TK', 'VE', 'AT', 'BO', 'CN', 'EE', 'GG', 'HU', 'KH', 'LU', 'MR', 'NP', 'PY', 'SM', 'TL', 'VG', 'AU', 'BR', 'CO', 'EG', 'GH', 'IC', 'KI', 'LV', 'MS', 'NR', 'QA', 'SN', 'TM', 'VI', 'AW', 'BS', 'CR', 'EH', 'GI', 'ID', 'KM', 'LY', 'MT', 'NU', 'RE', 'SO', 'TN', 'VN', 'AX', 'BT', 'CT', 'ER', 'GL', 'IE', 'KN', 'MA', 'MU', 'NZ', 'RO', 'SR', 'TO', 'VU', 'AZ', 'BW', 'CU', 'ES', 'GM', 'IL', 'KP', 'MC', 'MV', 'OM', 'RS', 'SS', 'TR', 'WF'];
+const checkInterval = 3550;
 
 function setBadgeText(text) {
-    chrome.browserAction.setBadgeText({ text: text });
+    chrome.action.setBadgeText({ text: text });
 }
 
 function setBadgeTextColor(color) {
-    if (typeof chrome.browserAction.setBadgeTextColor === "function") // only firefox
-        chrome.browserAction.setBadgeTextColor({ color: color });
+    if (typeof chrome.action.setBadgeTextColor === "function") // only firefox
+        chrome.action.setBadgeTextColor({ color: color });
 }
 
 function setBadgeColor(color) {
-    chrome.browserAction.setBadgeBackgroundColor({ color: color });
+    chrome.action.setBadgeBackgroundColor({ color: color });
 }
 
-function setIcon(country_code) {
-    var showFlags = lp.isSet(KEY_SETTINGS_SHOW_FLAGS) ? lp.get(KEY_SETTINGS_SHOW_FLAGS) : true;
+async function setIcon(country_code) {
+    let showFlags = await lp.isSet(KEY_SETTINGS_SHOW_FLAGS) ? await lp.get(KEY_SETTINGS_SHOW_FLAGS) : true;
     if (country_code == "ERR" || !showFlags || !(countriesSupported.includes(country_code))) {
-        chrome.browserAction.setIcon({ path: "img/icon48.png" });
+        chrome.action.setIcon({ path: "img/icon48.png" });
     } else {
-        chrome.browserAction.setIcon({ path: "img/flags/48/" + country_code + ".png" });
+        chrome.action.setIcon({ path: "img/flags/48/" + country_code + ".png" });
     }
 }
 
-
-function checkForLocationChange(geoLocation, ipv6) {
+async function checkForLocationChange(geoLocation, ipv6) {
     if (latestGeoLocation == null && !ipv6) {
         latestGeoLocation = geoLocation;
         return;
@@ -38,8 +38,8 @@ function checkForLocationChange(geoLocation, ipv6) {
         return;
     }
 
-    var checkForNotifications = lp.isSet(KEY_SETTINGS_NOTIFICATION) ? lp.get(KEY_SETTINGS_NOTIFICATION) : true;
-    var checkForNotificationsIPv6 = lp.isSet(KEY_SETTINGS_NOTIFICATION_IPv6) ? lp.get(KEY_SETTINGS_NOTIFICATION_IPv6) : false;
+    let checkForNotifications = await lp.isSet(KEY_SETTINGS_NOTIFICATION) ? await lp.get(KEY_SETTINGS_NOTIFICATION) : true;
+    let checkForNotificationsIPv6 = await lp.isSet(KEY_SETTINGS_NOTIFICATION_IPv6) ? await lp.get(KEY_SETTINGS_NOTIFICATION_IPv6) : false;
 
     if (!ipv6 && checkForNotifications && (latestGeoLocation.get('geoLocation').ipAddress !== geoLocation.get('geoLocation').ipAddress)) {
         message = 'From ' + latestGeoLocation.get('geoLocation').ipAddress + ' to ' + geoLocation.get('geoLocation').ipAddress + '.';
@@ -59,8 +59,8 @@ function checkForLocationChange(geoLocation, ipv6) {
         latestGeoLocation6 = geoLocation;
 }
 
-function fetchGeoLocation() {
-    var badgeIndicator = lp.isSet(KEY_SETTINGS_COUNTRY_BADGE) ? lp.get(KEY_SETTINGS_COUNTRY_BADGE) : 'auto';
+async function fetchGeoLocation() {
+    var badgeIndicator = await lp.isSet(KEY_SETTINGS_COUNTRY_BADGE) ? await lp.get(KEY_SETTINGS_COUNTRY_BADGE) : 'auto';
 
 
     var geoLocate = new GeoLocation();
@@ -81,7 +81,7 @@ function fetchGeoLocation() {
                 setIcon('ERR');
             }
         },
-        timeout: 2800
+        timeout: checkInterval - 50
     });
 
     var geoLocate6 = new GeoLocation6();
@@ -100,7 +100,7 @@ function fetchGeoLocation() {
                 setIcon('ERR');
             }
         },
-        timeout: 2800
+        timeout: checkInterval - 50
     });
 
 }
@@ -109,12 +109,8 @@ function showChromeNotification(id, title, message, contextMessage, callback) {
     chrome.notifications.create(id, { type: 'basic', iconUrl: 'img/icon128.png', title: title, message: message, contextMessage: contextMessage }, callback);
 }
 
-$(document).ready(
-    function () {
-        setBadgeColor('#000000');
-        setBadgeTextColor('#ffffff');
-        setBadgeText('...');
-        fetchGeoLocation();
-        var intval = setInterval(fetchGeoLocation, 3000);
-    }
-);
+setBadgeColor('#000000');
+setBadgeTextColor('#ffffff');
+setBadgeText('...');
+fetchGeoLocation();
+let intval = setInterval(fetchGeoLocation, checkInterval);
