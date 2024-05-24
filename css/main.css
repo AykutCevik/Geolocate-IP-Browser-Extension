@@ -1,12 +1,12 @@
 body {
-    overflow: hidden;
+    overflow: hidden;    
 }
 
 .ip-card-square.mdl-card {
     width: 700px;
 }
 
-.ip-card-square > .mdl-card__title {
+.ip-card-square>.mdl-card__title {
     color: #fff;
     background: url('../img/icon128.png') bottom 45% right 10% no-repeat #191919;
 }
@@ -25,4 +25,8 @@ body {
 
 .mdl-progress {
     width: 100%;
+}
+
+.mdl-data-table td {    
+    padding: 6px 9px;    
 }
