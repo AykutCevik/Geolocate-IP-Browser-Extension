@@ -10,6 +10,7 @@ copyDevFunction() {
     cp manifest.json ./dev/
     cp options.html ./dev/
     cp popup.html ./dev/
+    rm ./dev/img/icon_full.png # raw file
     rm ./dev/img/LICENSE
     rm ./dev/img/flags/Hello.txt
     rm ./dev/img/flags/LICENSE.txt

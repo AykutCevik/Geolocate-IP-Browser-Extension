@@ -10,11 +10,15 @@ async function saveSettings() {
     let notificationIPv6Setting = document.getElementById('enableNotificationsIPv6').checked;
     let badgeIndicator = document.querySelector("input[name='indicator']:checked").value;
     let showFlags = document.getElementById('enableCountryFlags').checked;
+    let showBadge = document.getElementById('enableCountryBadge').checked;
 
     await lp.set(KEY_SETTINGS_NOTIFICATION, notificationSetting);
     await lp.set(KEY_SETTINGS_NOTIFICATION_IPv6, notificationIPv6Setting);
     await lp.set(KEY_SETTINGS_COUNTRY_BADGE, badgeIndicator);
     await lp.set(KEY_SETTINGS_SHOW_FLAGS, showFlags);
+    await lp.set(KEY_SETTINGS_SHOW_TEXT, showBadge);
+
+    chrome.runtime.sendMessage({ method: "refresh" }, function (response) { });
 }
 
 async function loadSettings() {
@@ -35,6 +39,10 @@ async function loadSettings() {
         await lp.set(KEY_SETTINGS_SHOW_FLAGS, true);
     }
 
+    if (!(await lp.isSet(KEY_SETTINGS_SHOW_TEXT))) {
+        await lp.set(KEY_SETTINGS_SHOW_TEXT, true);
+    }
+
     let notificationSetting = await lp.get(KEY_SETTINGS_NOTIFICATION);
     document.getElementById('enableNotifications').checked = notificationSetting;
 
@@ -46,4 +54,7 @@ async function loadSettings() {
 
     let showFlags = await lp.get(KEY_SETTINGS_SHOW_FLAGS);
     document.getElementById('enableCountryFlags').checked = showFlags;
+
+    let showBadge = await lp.get(KEY_SETTINGS_SHOW_TEXT);
+    document.getElementById('enableCountryBadge').checked = showBadge;
 }
