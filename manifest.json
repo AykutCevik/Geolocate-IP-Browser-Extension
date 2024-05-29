@@ -1,6 +1,6 @@
 {
   "name": "IP Address & Geolocation",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "manifest_version": 3,
   "icons": {
     "16": "img/icon16.png",
@@ -21,7 +21,8 @@
   },
   "permissions": [
     "notifications",
-    "storage"
+    "storage",
+    "alarms"
   ],
   "minimum_chrome_version": "88",
   "options_ui": {

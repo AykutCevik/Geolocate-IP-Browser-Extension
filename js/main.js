@@ -125,4 +125,47 @@ setBadgeColor('#000000');
 setBadgeTextColor('#ffffff');
 setBadgeText('...');
 fetchGeoLocation();
-let intval = setInterval(fetchGeoLocation, checkInterval);
+
+let intval;
+
+function startInterval() {
+    if (!intval) {
+        intval = setInterval(fetchGeoLocation, checkInterval);
+    }
+}
+
+function stopInterval() {
+    if (intval) {
+        clearInterval(intval);
+        intval = null;
+    }
+}
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+    console.log('alarm fired');
+    console.log(alarm);
+    if (alarm.name === 'checkIntervalAlarm') {
+        stopInterval();
+        startInterval();
+    }
+});
+
+chrome.runtime.onSuspend.addListener(function () {
+    console.log('unloading');
+    stopInterval();
+});
+
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+    console.log('alarm fired');
+    if (alarm.name === 'checkIntervalAlarm') {
+        stopInterval();
+        startInterval();
+    }
+});
+
+chrome.runtime.onInstalled.addListener(() => {
+    console.log('installed');
+    startInterval();
+    chrome.alarms.create('checkIntervalAlarm', { periodInMinutes: 1 * 60000 });
+});

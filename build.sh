@@ -31,8 +31,10 @@ packageChromeFunction() {
 }
 
 prepareFirefoxFunction() {
-    echo "Preparing manifest.json for Firefox"
-    sed -i -e '14d;16d;17d' ./dev/manifest.json
+    #echo "Preparing manifest.json for Firefox"
+    echo "Firefox is currently not supported. It uses a different manifest.json file. Use an older version of the extension for Firefox."
+    exit 1
+    #sed -i -e '14d;16d;17d' ./dev/manifest.json
     cd ./dev/
     zip -qr firefox.zip ./*
     cd ..
