@@ -142,8 +142,6 @@ function stopInterval() {
 }
 
 chrome.alarms.onAlarm.addListener((alarm) => {
-    console.log('alarm fired');
-    console.log(alarm);
     if (alarm.name === 'checkIntervalAlarm') {
         stopInterval();
         startInterval();
@@ -151,13 +149,11 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 });
 
 chrome.runtime.onSuspend.addListener(function () {
-    console.log('unloading');
     stopInterval();
 });
 
 
 chrome.alarms.onAlarm.addListener((alarm) => {
-    console.log('alarm fired');
     if (alarm.name === 'checkIntervalAlarm') {
         stopInterval();
         startInterval();
@@ -165,7 +161,11 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 });
 
 chrome.runtime.onInstalled.addListener(() => {
-    console.log('installed');
     startInterval();
-    chrome.alarms.create('checkIntervalAlarm', { periodInMinutes: 1 * 60000 });
+    chrome.alarms.create('checkIntervalAlarm', { periodInMinutes: 1 });
+});
+
+chrome.runtime.onStartup.addListener(() => {
+    startInterval();
+    chrome.alarms.create('checkIntervalAlarm', { periodInMinutes: 1 });
 });
